@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home/artem/.ssh'
+let g:netrw_dirhist_7='/home/artem/horizon/bro/articles'
+let g:netrw_dirhist_6='/home/artem/horizon/bro/clj/src/cljs/bro/upload/waypoints/workspaces'
+let g:netrw_dirhist_5='/home/artem/dev/daily-reading-notes/content/books/remote'
+let g:netrw_dirhist_4='/home/artem/dev/daily-reading-notes/content/books/stillness-is-the-key'
+let g:netrw_dirhist_3='/home/hackeryarn/dotfiles/neovim/.config/nvim/after/compiler'
+let g:netrw_dirhist_2='/home/hackeryarn/dotfiles/neovim/.config/nvim/after/ftplugin'
+let g:netrw_dirhist_1='/home/hackeryarn/dev/daily-reading-notes/content/books/getting-past-no'
+let g:netrw_dirhist_0='/home/hackeryarn/dev/daily-reading-notes/content/books/essentialism'
+let g:netrw_dirhist_9='/home/hackeryarn/dev/daily-reading-notes/content/books/elements-of-style'

@@ -19,6 +19,8 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "Triplicate T4c" :size 18))
+; (setq doom-variable-pitch-font (font-spec :family "triplicate t4c"))
+; (setq doom-font (font-spec :family "triplicate t4c" :size 20))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -54,7 +56,8 @@
 (setq doom-localleader-key ",")
 
 (after! evil
-  (setq evil-escape-key-sequence "fd"))
+  (setq evil-escape-key-sequence "fd")
+  (define-key! evil-normal-state-map "/" #'swiper))
 
 (after! cider
   (cider-register-cljs-repl-type
@@ -64,3 +67,7 @@
 
 (after! parinfer
   (add-hook! (racket-mode hy-mode) #'parinfer-mode))
+
+(setq flycheck-python-flake8-executable "flake8")
+
+(add-hook! text-mode #'auto-fill-mode)

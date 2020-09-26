@@ -2,6 +2,8 @@
 # ~/.bashrc
 #
 
+export TERM="screen-256color"
+
 [[ $- != *i* ]] && return
 
 colors() {
@@ -138,11 +140,54 @@ ex ()
   fi
 }
 
-# virtualenvs
-eval "$(pyenv virtualenv-init -)"
-eval "$(pyenv init -)"
+export PATH="/home/hackeryarn/bin:$PATH"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# nvim
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+alias vim=nvim
+alias vi=nvim
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+  if [ -x "$(command -v nvr)" ]; then
+    alias nvim='nvr --remote-wait-silent'
+  else
+    alias nvim='echo "No nesting!"'
+  fi
+fi
+
+# fzf
+export FZF_DEFAULT_COMMAND='rg --files'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# ruby
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+# tmux
+if [[ -z "$TMUX" ]]; then
+  tmux attach-session -t "$USER" || tmux new-session -s "$USER"
+fi
+
+source /usr/share/bash-completion/completions/git
+
+eval `dircolors ~/.dir_colors/dircolors`
+
+# racket
+export PATH="$PATH:/home/artem/bin"
+
+eval "$(direnv hook bash)"

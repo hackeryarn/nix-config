@@ -1,0 +1,4 @@
+/lein/.lein/repl-history
+/lein/.lein/self-installs/
+neovim/.config/nvim/plugged
+/neovim/.config/nvim/after/compiler/

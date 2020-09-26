@@ -1,0 +1,112 @@
+[$Version]
+update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed
+
+[Compositing]
+Backend=OpenGL
+Enabled=false
+GLCore=true
+GLPreferBufferSwap=a
+GLTextureFilter=2
+HiddenPreviews=5
+OpenGLIsUnsafe=false
+WindowsBlockCompositing=true
+XRenderSmoothScale=false
+
+[Desktops]
+Id_1=252c5efa-4094-46f5-b19f-986b21404ba1
+Id_2=24545ed5-0843-462a-80ad-30309ed2ea7d
+Id_3=566e0189-4c18-42f4-b660-7b2c8a25dad8
+Id_4=34c88dde-1d35-4e15-a57f-cb7cd0bfea76
+Id_5=0b7f4030-0354-496b-99ee-cbed0e628966
+Id_6=1456bf06-dbb8-45fd-8016-5805e14aeada
+Name_3=New Desktop
+Name_4=New Desktop
+Name_5=New Desktop
+Name_6=New Desktop
+Number=6
+Rows=1
+
+[MouseBindings]
+CommandActiveTitlebar1=Raise
+CommandActiveTitlebar2=Nothing
+CommandActiveTitlebar3=Operations menu
+CommandAll1=Move
+CommandAll2=Toggle raise and lower
+CommandAll3=Resize
+CommandAllKey=Alt
+CommandAllWheel=Nothing
+CommandInactiveTitlebar1=Activate and raise
+CommandInactiveTitlebar2=Nothing
+CommandInactiveTitlebar3=Operations menu
+CommandTitlebarWheel=Nothing
+CommandWindow1=Activate, raise and pass click
+CommandWindow2=Activate and pass click
+CommandWindow3=Activate and pass click
+CommandWindowWheel=Scroll
+
+[NightColor]
+Active=true
+LatitudeAuto=38.783
+LatitudeFixed=38.783
+LongitudeAuto=-90.6351
+LongitudeFixed=-90.6351
+Mode=Location
+NightTemperature=3400
+
+[Plugins]
+desktopchangeosdEnabled=false
+kwin-script-tilingEnabled=true
+minimizeallEnabled=false
+synchronizeskipswitcherEnabled=false
+videowallEnabled=false
+windowgeometryEnabled=false
+
+[Script-desktopchangeosd]
+PopupHideDelay=1000
+TextOnly=false
+
+[Script-kwin-script-tiling]
+floaters=\\0
+layouts=0:BladeLayout
+windowsGapSizeHeight=2
+windowsGapSizeWidth=2
+
+[TabBox]
+DesktopLayout=org.kde.breeze.desktop
+DesktopListLayout=org.kde.breeze.desktop
+LayoutName=org.kde.breeze.desktop
+
+[Windows]
+ActiveMouseScreen=true
+AutoRaise=false
+AutoRaiseInterval=750
+BorderSnapZone=10
+CenterSnapZone=0
+ClickRaise=true
+DelayFocusInterval=300
+FocusPolicy=FocusFollowsMouse
+FocusStealingPreventionLevel=1
+GeometryTip=false
+HideUtilityWindowsForInactive=true
+MaximizeButtonLeftClickCommand=Maximize
+MaximizeButtonMiddleClickCommand=Maximize (vertical only)
+MaximizeButtonRightClickCommand=Maximize (horizontal only)
+NextFocusPrefersMouse=false
+Placement=Smart
+RollOverDesktops=true
+SeparateScreenFocus=false
+ShadeHover=false
+ShadeHoverInterval=250
+SnapOnlyWhenOverlapping=false
+TitlebarDoubleClickCommand=Maximize
+WindowSnapZone=10
+
+[org.kde.kdecoration2]
+BorderSize=Normal
+BorderSizeAuto=true
+ButtonsOnLeft=MS
+ButtonsOnRight=HIAX
+CloseOnDoubleClickOnMenu=false
+ShowToolTips=true
+library=org.kde.breeze
+theme=Breeze

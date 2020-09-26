@@ -120,19 +120,22 @@
       "* TODO %i%?"))
 
   (defun org-template-week ()
-    '("w" "Weekly Review" entry
+    `("w" "Weekly Review" entry
       (file+olp+datetree "~/Sync/org/weekly-review.org")
-      "* Wins\n- %?\n* Struggles\n- \n* Ball Drops\n- " :tree-type week))
-
-  (defun org-template-month ()
-    '("m" "Monthly Review" entry
-      (file+olp+datetree "~/Sync/org/monthly-review.org")
-      "* Wins\n- %?\n* Struggles\n- \n* Ball Drops\n- "))
+      ,(string-join '("* Wins"
+                      "* Struggles"
+                      "* Chores"
+                      "* Journaling"
+                      "* Workout"
+                      "* Reading"
+                      "* Learning"
+                      "* Projects\n- ")
+                    "\n- \n")
+      :tree-type week))
 
   (setq org-capture-templates
         (list (org-template-todo)
-              (org-template-week)
-              (org-template-month)))
+              (org-template-week)))
 
   (defun +org/get-day (post)
     "Gets the day number from the post"
