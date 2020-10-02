@@ -183,7 +183,7 @@ if [[ -z "$TMUX" ]]; then
   tmux attach-session -t "$USER" || tmux new-session -s "$USER"
 fi
 
-source /usr/share/bash-completion/completions/git
+# source /usr/share/bash-completion/completions/git
 
 eval `dircolors ~/.dir_colors/dircolors`
 
