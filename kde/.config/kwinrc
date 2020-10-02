@@ -47,11 +47,7 @@ CommandWindowWheel=Scroll
 [NightColor]
 Active=true
 LatitudeAuto=38.783
-LatitudeFixed=38.783
 LongitudeAuto=-90.6351
-LongitudeFixed=-90.6351
-Mode=Location
-NightTemperature=3400
 
 [Plugins]
 desktopchangeosdEnabled=false
