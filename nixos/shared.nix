@@ -2,6 +2,14 @@
 
 {
   imports = [ ./tmux.nix ./systemPackages.nix ];
+  nix = {
+    package = pkgs.nixUnstable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      keep-outputs = true
+      keep-derivations = true
+    '';
+  };
   # Enable virtualization
   boot.extraModprobeConfig = "options kvm_intel nested=1";
   virtualisation.libvirtd.enable = true;
@@ -36,12 +44,6 @@
   time.timeZone = "America/Chicago";
 
   nixpkgs.config = { allowUnfree = true; };
-
-  # Enable derivations to persist garbage collection
-  nix.extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
-  '';
 
   environment.pathsToLink = [ "/share/nix-direnv" ];
 
