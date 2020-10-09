@@ -9,13 +9,18 @@
   home.username = "artem";
   home.homeDirectory = "/home/artem";
 
-  home.packages = [
-    pkgs.google-chrome
-    pkgs.slack
-    pkgs.phantomjs2
-    pkgs.cabal-install
-    pkgs.nodejs
-    pkgs.nixfmt
+  home.packages = with pkgs; [
+    google-chrome
+    slack
+    phantomjs2
+    cabal-install
+    nodejs
+    nixfmt
+    zoom-us
+    kakoune
+    kak-lsp
+    parinfer-rust
+    nnn
   ];
 
   services = { syncthing.enable = true; };
@@ -41,5 +46,5 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "21.03";
+  home.stateVersion = "20.09";
 }

@@ -85,6 +85,8 @@
     (add-hook 'before-save-hook '+format/buffer 0 t)
     (add-hook 'before-save-hook 'py-isort-before-save 0 t)))
 
+(after! projectile
+  (setq projectile-indexing-method 'hybrid))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

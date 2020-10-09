@@ -148,7 +148,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # nvim
-export VISUAL=nvim
+export VISUAL=kak
 export EDITOR="$VISUAL"
 alias vim=nvim
 alias vi=nvim
@@ -161,9 +161,21 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
 fi
 
 # fzf
-export FZF_DEFAULT_COMMAND='rg --files'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+if command -v fzf-share >/dev/null; then
+  source "$(fzf-share)/key-bindings.bash"
+  source "$(fzf-share)/completion.bash"
+fi
+kg() {
+  local file
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+  file="$(rg --column --hidden --line-number --smart-case --no-heading "$@" | fzf -0 -1 | awk -F: '{print $1}')"
+
+  if [[ -n $file ]]
+  then
+      kak $file
+  fi
+}  
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -191,3 +203,6 @@ eval `dircolors ~/.dir_colors/dircolors`
 export PATH="$PATH:/home/artem/bin"
 
 eval "$(direnv hook bash)"
+
+# nnn
+export NNN_PLUG='f:finder;o:fzopen;d:diffs'
