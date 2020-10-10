@@ -16,17 +16,14 @@ This will try to link the file appropriately. If the files already exist on the 
 
 ## Setting up nixos
 
-Each system requires it's own configuration, and has it's own dedicated folder.
+Nixos uses Nix Flakes for reproducible confiurations.
 
-On a fresh system install or migration:
+The setup needs to sync the hardware config before it can fully install. Make sure to select the same system for all the steps
 
 ``` sh
 # copy the existing hardware config
 $ cp /etc/nixos/harware-configuration.nix <system folder>
 
-# clean upa the existing files
-$ rm /etc/nixos/*.nix
-
-# link the appropriate config
-$ stow <system folder> -t /etc/nixos
+# apply the appropriate flake
+$ sudo nixos-rebuild switch --flake '.#<system name>'
 ```

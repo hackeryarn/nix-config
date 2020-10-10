@@ -2,6 +2,7 @@
 
 {
   imports = [ ./tmux.nix ./systemPackages.nix ];
+
   nix = {
     package = pkgs.nixUnstable;
     extraOptions = ''
