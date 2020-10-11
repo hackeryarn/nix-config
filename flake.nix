@@ -33,7 +33,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.user = import ./darterpro/home.nix;
+            home-manager.users.artem =
+              import ./home/artem.nix { inherit system; };
           }
         ];
       };
