@@ -42,6 +42,8 @@
 ;; Required for pytest
 (setq comint-prompt-read-only nil)
 
+(setq ispell-dictionary "en")
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
