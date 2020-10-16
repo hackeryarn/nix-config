@@ -19,6 +19,23 @@
         "type": "github"
       }
     },
+    "neuron": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1602434456,
+        "narHash": "sha256-3petAJBMiJk52xEl4b0W/oyYRHySbYpfB5CoWdv4Adw=",
+        "owner": "srid",
+        "repo": "neuron",
+        "rev": "a33ccad0b84bef9dc1c06ccd913f0e5d4724881c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srid",
+        "ref": "master",
+        "repo": "neuron",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1602362665,
@@ -52,6 +69,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "neuron": "neuron",
         "nixpkgs": "nixpkgs_2"
       }
     }
