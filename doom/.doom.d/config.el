@@ -87,6 +87,12 @@
     (add-hook 'before-save-hook '+format/buffer 0 t)
     (add-hook 'before-save-hook 'py-isort-before-save 0 t)))
 
+(after! esh-mode
+  (map! :map eshell-mode-map
+        :i "C-c C-c" #'eshell-interrupt-process
+        :i "<up>" #'eshell-previous-matching-input-from-input
+        :i "<down>" #'eshell-next-matching-input-from-input))
+
 (after! projectile
   (setq projectile-indexing-method 'hybrid))
 
