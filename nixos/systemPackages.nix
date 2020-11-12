@@ -25,6 +25,9 @@
     aspellDicts.en-science
     shellcheck
     editorconfig-core-c
+    texlive.combined.scheme-full
+    obs-studio
+    okular
   ];
 
 }
