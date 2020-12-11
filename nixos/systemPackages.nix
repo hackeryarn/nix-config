@@ -28,6 +28,7 @@
     texlive.combined.scheme-full
     obs-studio
     okular
+    nixfmt
   ];
 
 }

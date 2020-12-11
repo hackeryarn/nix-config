@@ -6,19 +6,40 @@
     ../nixos/shared.nix
   ];
 
+  environment.systemPackages = with pkgs; [ wineWowPackages.unstable ];
+
   # Enable nvidia
   services.xserver.videoDriver = "nvidia";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.hackeryarn = {
-    boot.loader.grub.enable = true;
-    boot.loader.grub.version = 2;
-    boot.loader.grub.device = "/dev/sda";
-    boot.loader.grub.useOSProber = true;
     isNormalUser = true;
     home = "/home/hackeryarn";
-    description = "Artem Chernyak";
-    extraGroups =
-      [ "wheel" "networkmanager" "disk" "audio" "video" "systemd-journal" ];
+    description = "hackeryarn";
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "disk"
+      "audio"
+      "video"
+      "systemd-journal"
+      "docker"
+    ];
   };
+
+  users.users.artem = {
+    isNormalUser = true;
+    home = "/home/artem";
+    description = "Artem Chernyak";
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "disk"
+      "audio"
+      "video"
+      "systemd-journal"
+      "docker"
+    ];
+  };
+
 }

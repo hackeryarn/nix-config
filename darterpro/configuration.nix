@@ -6,8 +6,6 @@
     ../nixos/shared.nix
   ];
 
-  virtualisation.docker.enable = true;
-
   networking.wg-quick.interfaces = {
     wg0 = {
       address = [ "10.19.49.2/24" "2001:db8:a160::2/48" ];

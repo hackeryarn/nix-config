@@ -13,7 +13,9 @@
   };
   # Enable virtualization
   boot.extraModprobeConfig = "options kvm_intel nested=1";
+
   virtualisation.libvirtd.enable = true;
+  virtualisation.docker.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

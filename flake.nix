@@ -48,9 +48,25 @@
           }
         ];
       };
+
       nixosConfigurations.oryxpro = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [ ./oryxpro/configuration.nix ];
+        modules = [
+          ./oryxpro/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.hackeryarn = import ./home/hackeryarn.nix {
+              inherit system;
+              inherit neuron;
+            };
+            home-manager.users.artem = import ./home/artem.nix {
+              inherit system;
+              inherit neuron;
+            };
+          }
+        ];
       };
     };
 }
