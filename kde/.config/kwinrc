@@ -48,6 +48,7 @@ CommandWindowWheel=Scroll
 Active=true
 LatitudeAuto=38.783
 LongitudeAuto=-90.6351
+NightTemperature=2900
 
 [Plugins]
 desktopchangeosdEnabled=false

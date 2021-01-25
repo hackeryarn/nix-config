@@ -6,10 +6,18 @@
     ../nixos/shared.nix
   ];
 
-  environment.systemPackages = with pkgs; [ wineWowPackages.unstable ];
+  environment.systemPackages = with pkgs; [ lutris ];
 
   # Enable nvidia
   services.xserver.videoDriver = "nvidia";
+
+  # Open VPN
+  services.openvpn.servers = {
+    horizonVPN = {
+      config = "config /root/nixos/openvpn/horizon.conf";
+      autoStart = false;
+    };
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.hackeryarn = {

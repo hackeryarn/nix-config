@@ -6,7 +6,6 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    google-chrome
     slack
     phantomjs2
     cabal-install

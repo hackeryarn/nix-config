@@ -9,7 +9,12 @@
  '(neuron-default-zettelkasten-directory "/home/artem/zettelkasten" t)
  '(neuron-tag-specific-title-faces '(("stub" neuron-stub-face)) t)
  '(safe-local-variable-values
-   '((projectile-globally-ignored-files "clj")
+   '((eval setq ansible-vault-password-file "~/.picard-vault-pass")
+     (ansible-vault-password-file "~/.picard-vault-pass")
+     (cider-shadow-default-options . "app")
+     (cider-default-cljs-repl . shadow)
+     (cider-shadow-cljs-default-options . "app")
+     (projectile-globally-ignored-files "clj")
      (projectile-project-name . "bro/clj")
      (eval progn
            (defun shell-command-in-root-dir

@@ -28,7 +28,7 @@
   outputs = { self, nixpkgs, home-manager, neuron }:
     let
       system = "x86_64-linux";
-      pkgs = (import nixpkgs) {
+      pkgs = import nixpkgs {
         inherit system;
         config = { allowUnfree = true; };
       };

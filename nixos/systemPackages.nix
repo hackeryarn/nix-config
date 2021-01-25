@@ -5,30 +5,39 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     firefox
+    google-chrome
+
     git
     wget
     xclip
     ripgrep
-    coreutils
-    fd
-    clang
     neovim
     fzf
+    fd
+    sqlite
+
     direnv
     nix-direnv
     stow
+
     kwin-tiling
-    kdeApplications.spectacle
+    libsForQt5.spectacle
+
+    obs-studio
+    okular
+    texlive.combined.scheme-full
     aspell
     aspellDicts.en
     aspellDicts.en-computers
     aspellDicts.en-science
+
     shellcheck
     editorconfig-core-c
-    texlive.combined.scheme-full
-    obs-studio
-    okular
     nixfmt
+    sbcl
+    racket
+    coreutils
+    clang
   ];
 
 }

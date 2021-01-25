@@ -4,7 +4,7 @@
   imports = [ ./tmux.nix ./systemPackages.nix ];
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true

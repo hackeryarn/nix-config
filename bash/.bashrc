@@ -200,7 +200,7 @@ fi
 eval `dircolors ~/.dir_colors/dircolors`
 
 # racket
-export PATH="$PATH:/home/artem/bin"
+export PATH="$PATH:/home/artem/.local/share/racket/7.9/bin"
 
 eval "$(direnv hook bash)"
 
