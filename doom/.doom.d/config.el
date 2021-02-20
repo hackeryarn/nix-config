@@ -96,6 +96,13 @@
 (after! projectile
   (setq projectile-indexing-method 'hybrid))
 
+(after! racket-mode
+  (add-hook 'racket-mode-hook #'racket-xp-mode))
+
+(after! deft
+  (setq deft-directory "~/org")
+  (setq deft-recursive t))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -104,3 +111,16 @@
  '(custom-safe-themes
    (quote
     ("0cb1b0ea66b145ad9b9e34c850ea8e842c4c4c83abe04e37455a1ef4cc5b8791" default))))
+
+
+;; Functions for drn
+
+(setq +drn/bin-path "~/common-lisp/daily-reading-notes/daily-reading-notes")
+
+(defun +drn/new-post ()
+  (interactive)
+  (let ((dir (projectile-project-root)))
+    (find-file (shell-command-to-string
+                (concat +drn/bin-path " new-post " dir)))
+    (goto-char (point-min))
+    (forward-line 5)))

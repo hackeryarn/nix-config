@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: django-data-migration
+# uuid: ddm
+# key: ddm
+# condition: t
+# --
+
+./manage.py makemigrations --empty $1

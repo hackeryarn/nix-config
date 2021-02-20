@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: data-migration-operation
+# uuid: dmo
+# key: dmo
+# condition: t
+# --
+
+migrations.RunPython(${1:function})

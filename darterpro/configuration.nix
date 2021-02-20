@@ -6,6 +6,7 @@
     ../nixos/shared.nix
   ];
 
+  # Private vpn
   networking.wg-quick.interfaces = {
     wg0 = {
       address = [ "10.19.49.2/24" "2001:db8:a160::2/48" ];
@@ -18,6 +19,14 @@
         endpoint = "164.90.154.100:51820";
         persistentKeepalive = 25;
       }];
+    };
+  };
+
+  # Horizon VPN
+  services.openvpn.servers = {
+    horizonVPN = {
+      config = "config /root/nixos/openvpn/horizon.conf";
+      autoStart = false;
     };
   };
 
