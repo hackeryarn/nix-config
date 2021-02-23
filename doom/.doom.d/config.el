@@ -103,6 +103,11 @@
   (setq deft-directory "~/org")
   (setq deft-recursive t))
 
+(setq inferior-lisp-program "ros -Q run")
+
+(after! pollen-mode
+  (add-hook 'pollen-mode-hook #'spell-fu-mode))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -121,6 +126,15 @@
   (interactive)
   (let ((dir (projectile-project-root)))
     (find-file (shell-command-to-string
-                (concat +drn/bin-path " new-post " dir)))
+                (format "%s new-post %s" +drn/bin-path dir)))
+    (goto-char (point-min))
+    (forward-line 5)))
+
+(defun +drn/new-book ()
+  (interactive)
+  (let ((dir (projectile-project-root))
+        (title (read-string "Enter book title: ")))
+    (find-file (shell-command-to-string
+                (format "%s new-book %s '%s'" +drn/bin-path dir title)))
     (goto-char (point-min))
     (forward-line 5)))

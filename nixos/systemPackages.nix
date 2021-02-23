@@ -6,6 +6,7 @@
   environment.systemPackages = with pkgs; [
     firefox
     google-chrome
+    brave
 
     git
     wget
@@ -22,6 +23,7 @@
 
     kwin-tiling
     libsForQt5.spectacle
+    ark
 
     obs-studio
     okular
