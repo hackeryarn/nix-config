@@ -16,14 +16,16 @@
     fzf
     fd
     sqlite
+    gnumake
+    stow
 
     direnv
     nix-direnv
-    stow
 
     kwin-tiling
     libsForQt5.spectacle
     ark
+    plasma-browser-integration
 
     obs-studio
     okular
