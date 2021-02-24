@@ -1,4 +1,3 @@
-{ system, neuron }:
 { config, pkgs, ... }:
 
 {
@@ -30,17 +29,6 @@
       enable = true;
       userName = "artem";
       userEmail = "artem@horizoninvestments.com";
-    };
-  };
-
-  systemd.user.services.neuron = let
-    notesDir = "/home/artem/zettelkasten";
-    neuron-zettel = import neuron { inherit system; };
-  in {
-    Unit.Description = "Neuron zettelkasten service";
-    Install.WantedBy = [ "graphical-session.target" ];
-    Service = {
-      ExecStart = "${neuron-zettel}/bin/neuron -d ${notesDir} rib -wS";
     };
   };
 

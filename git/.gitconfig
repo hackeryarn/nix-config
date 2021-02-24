@@ -1,12 +1,4 @@
-[user]
-	email = artemchernyak@gmail.com
-	name = hackeryarn
 [push]
 	default = current
-[core]
-	excludesfile = /home/artem/.gitignore_global
-
-[includeIf "gitdir:~/horizon/"]
-  path = ~/horizon/.gitconfig
 [pull]
 	rebase = false

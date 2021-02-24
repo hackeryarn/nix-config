@@ -6,9 +6,6 @@
  '(custom-safe-themes
    '("30095d77cf3b19b736e472f56899df6e072c9c3c404ea1e16dbcffb1544eaf08" "0cb1b0ea66b145ad9b9e34c850ea8e842c4c4c83abe04e37455a1ef4cc5b8791" default))
  '(elfeed-feeds '("https://dailystoic.com/category/email-archives/rss"))
- '(neuron-default-tags '("stub") t)
- '(neuron-default-zettelkasten-directory "/home/artem/zettelkasten" t)
- '(neuron-tag-specific-title-faces '(("stub" neuron-stub-face)) t)
  '(safe-local-variable-values
    '((eval setq ansible-vault-password-file "~/.picard-vault-pass")
      (ansible-vault-password-file "~/.picard-vault-pass")
