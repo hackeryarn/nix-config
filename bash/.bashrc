@@ -206,3 +206,4 @@ eval "$(direnv hook bash)"
 
 # nnn
 export NNN_PLUG='f:finder;o:fzopen;d:diffs'
+source /usr/share/nvm/init-nvm.sh

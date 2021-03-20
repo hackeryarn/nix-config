@@ -7,7 +7,28 @@
    '("30095d77cf3b19b736e472f56899df6e072c9c3c404ea1e16dbcffb1544eaf08" "0cb1b0ea66b145ad9b9e34c850ea8e842c4c4c83abe04e37455a1ef4cc5b8791" default))
  '(elfeed-feeds '("https://dailystoic.com/category/email-archives/rss"))
  '(safe-local-variable-values
-   '((eval setq ansible-vault-password-file "~/.picard-vault-pass")
+   '((eval put 'walk-mp3s 'common-lisp-indent-function
+           (get 'with-output-to-string 'common-lisp-indent-function))
+     (eval put 'define-tagged-binary-class 'common-lisp-indent-function
+           (get 'defclass 'common-lisp-indent-function))
+     (eval put 'define-binary-class 'common-lisp-indent-function
+           (get 'defclass 'common-lisp-indent-function))
+     (eval put 'define-binary-type 'common-lisp-indent-function
+           '(6 4 &rest
+               (&whole 2 4 2)))
+     (eval font-lock-add-keywords 'lisp-mode
+           '(("(\\(define-tagged-binary-class\\)\\s +\\(\\(\\w\\|\\s_\\)+\\)"
+              (1 font-lock-keyword-face)
+              (2 font-lock-function-name-face))))
+     (eval font-lock-add-keywords 'lisp-mode
+           '(("(\\(define-binary-class\\)\\s +\\(\\(\\w\\|\\s_\\)+\\)"
+              (1 font-lock-keyword-face)
+              (2 font-lock-function-name-face))))
+     (eval font-lock-add-keywords 'lisp-mode
+           '(("(\\(define-binary-type\\)\\s +\\(\\(\\w\\|\\s_\\)+\\)"
+              (1 font-lock-keyword-face)
+              (2 font-lock-function-name-face))))
+     (eval setq ansible-vault-password-file "~/.picard-vault-pass")
      (ansible-vault-password-file "~/.picard-vault-pass")
      (cider-shadow-default-options . "app")
      (cider-default-cljs-repl . shadow)

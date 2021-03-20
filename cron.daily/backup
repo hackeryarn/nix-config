@@ -1,0 +1,4 @@
+#!/bin/bash
+
+snap-sync -u c2ef46b0-7c6d-4d8e-b070-0fc5f420f95e -s 376 -q --noconfirm
+
