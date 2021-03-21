@@ -1,0 +1,72 @@
+.TH BATCHCOLOR 1
+.SH NAME
+batchcolor \- colorize regex matches in batches
+.SH SYNOPSIS
+.B batchcolor
+.R [OPTIONS] REGEX [FILE...]
+.SH DESCRIPTION
+batchcolor takes a regular expression and matches it agains standard input one line at a time. Each unique match is highlighted in its own color.
+.PP
+If the regular expression contains any capturing groups, only those parts of the matches will be highlighted. Otherwise the entire match will be highlighted. Overlapping capturing groups are not supported.
+.PP
+If no FILEs are given, standard input will be used. A file of \- stands for standard input as well.
+.PP
+Overlapping capturing groups are not supported because it's not clear what the result should be. For example: what should ((f)oo|(b)oo) highlight when matched agains 'foo'? Should it highlight 'foo' in one color? The 'f' in one color and 'oo' in another color? Should that 'oo' be the same color as the 'oo' in 'boo' even though the overall match was different? There are too many possible behaviors and no clear winner, so batchcolor disallows overlapping capturing groups entirely.
+.SH OPTIONS
+.TP
+.BR \-h ", "\-\-help
+Display help and exit.
+.TP
+.BR \-d ", "\-\-debug
+Enable the Lisp debugger.
+.TP
+.BR \-D ", "\-\-no-debug
+Disable the List debugger (the default).
+.SS Color Options
+.TP
+.BR \-r ", "\-\-randomize
+Randomize the choice of color each run.
+.TP
+.BR \-R ", "\-\-no-randomize
+Do not randomize the choice of color each run (the default).
+.TP
+.BR \-\-dark
+Optimize for dark terminals (the default).
+.TP
+.BR \-\-light
+Optimize for light terminals.
+.TP
+.BR \-e " " \fIR,G,B:STRING\fR ", "\-\-explicit=\fIR,G,B:STRING\fR
+Highligh STRING in an explicit color instead of a randomly choosing one. R, G, and B must be 0\-5. STRING is treated as literal string, not a regex. Note that this doesn't automatically add STRING to the overall regex, you must do that yourself! This is a known bug that may be fixed in the future.
+.SH EXAMPLES
+Colorize IRC nicknames in a chat log:
+.PP
+.nf
+.RS
+cat channel.log | batchcolor '<(\\w+)>'
+.RE
+.fi
+.PP
+Colorize UUIDs in a request log:
+.PP
+.nf
+.RS
+tail -f /var/log/foo | batchcolor '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}'
+.RE
+.fi
+.PP
+Colorize some keywords explicitly and IPv4 addresses randomly (note that the keywords have to be in the main regex too, not just in the \-e options):
+.PP
+.nf
+.RS
+batchcolor 'WARN|INFO|ERR|(?:[0-9]{1,3}\\.){3}[0-9]{1,3}' -e '5,0,0:ERR' -e '5,4,0:WARN' -e '2,2,5:INFO' foo.log
+.RE
+.fi
+.PP
+Colorize earmuffed symbols in a Lisp file:
+.PP
+.nf
+.RS
+batchcolor '(?:^|[^*])([*][-a-zA-Z0-9]+[*])(?:$|[^*])' tests/test.lisp
+.RE
+.fi
