@@ -13,9 +13,6 @@
 ;;;; Errors
 (define-condition user-error (error) ())
 
-(define-condition missing-path (user-error) ()
-  (:report "A path is required, but none was supplied."))
-
 ;;;; Functionality
 (defun backups (machines)
   (loop for machine in machines
@@ -80,6 +77,14 @@
    :initial-value *path*
    :reduce #'adopt:last))
 
+(adopt:defparameters (*option-debug* *option-no-debug*)
+    (adopt:make-boolean-options
+     'debug
+     :long "debug"
+     :short #\d
+     :help "Enable the Lisp debugger."
+     :help-no "Disable the Lisp debugger (the default)."))
+
 (defparameter *ui*
   (adopt:make-interface
    :name "backup"
@@ -88,15 +93,22 @@
    :help *help-text*
    :contents (list
               *option-help*
-              *option-path*)))
+              *option-debug*
+              *option-no-debug*
+              (adopt:make-group 'clean-ptions
+                                :title "Clean Options"
+                                :options (list *option-path*)))))
 
 (defun toplevel ()
   (sb-ext:disable-debugger)
   (exit-on-ctrl-c
     (multiple-value-bind (arguments options) (adopt:parse-options-or-exit *ui*)
       (declare (ignore arguments))
-      (when (gethash 'help options)
-        (adopt:print-help-and-exit *ui*))
-      (let ((path (gethash 'path options)))
-        (handler-case (run path)
-          (user-error (e) (adopt:print-error-and-exit e)))))))
+      (when (gethash 'debug options)
+        (sb-ext:enable-debugger))
+      (handler-case
+          (cond
+            ((gethash 'help options) (adopt:print-help-and-exit *ui*))
+            (t (let ((path (gethash 'path options)))
+                 (run path))))
+        (user-error (e) (adopt:print-error-and-exit e))))))
