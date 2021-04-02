@@ -28,13 +28,17 @@ sudo pacman -S yay \
 	racket \
 	docker \
 	docker-compose \
-	pcre
+	pcre \
+	libreoffice-fresh \
+	jdk-openjdk \
+	leiningen
 
 yay -S direnv \
 	slack-desktop \
 	zoom \
 	kwin-scripts-tiling \
-	roswell
+	roswell \
+	stumpwm
 
 curl -L https://nixos.org/nix/install | sh
 
