@@ -36,8 +36,9 @@
 (setq display-line-numbers-type t)
 
 ;; Theme config
-(setq modus-operandi-theme-bold-constructs t)
-(setq modus-operandi-theme--constructs t)
+(setq modus-themes-slanted-constructs t)
+(setq modus-themes-bold-constructs nil)
+(setq modus-themes-paren-match 'intense)
 
 ;; Required for pytest
 (setq comint-prompt-read-only nil)
