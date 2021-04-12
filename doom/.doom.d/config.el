@@ -36,9 +36,10 @@
 (setq display-line-numbers-type t)
 
 ;; Theme config
-(setq modus-themes-slanted-constructs t)
-(setq modus-themes-bold-constructs nil)
-(setq modus-themes-paren-match 'intense)
+(after! modus-operandi-theme
+  (setq modus-themes-slanted-constructs t)
+  (setq modus-themes-bold-constructs nil)
+  (setq modus-themes-paren-match 'intense))
 
 ;; Required for pytest
 (setq comint-prompt-read-only nil)
@@ -62,8 +63,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(after! modus-operandi-theme
-  (setq modus-operandi-theme-bold-constructs t))
 
 (after! evil
   (setq evil-escape-key-sequence "fd")
@@ -84,9 +83,9 @@
 (after! python
   (setq-hook! 'python-mode-hook +format-with :none)
   (setq-hook! 'python-mode-hook +format-with-lsp t)
+  (setq py-isort-options '("--profile=django"))
   (add-hook! 'python-mode-hook
-    (add-hook 'before-save-hook '+format/buffer 0 t)
-    (add-hook 'before-save-hook 'py-isort-before-save 0 t)))
+    (add-hook 'before-save-hook '+format/buffer 0 t)))
 
 (after! esh-mode
   (map! :map eshell-mode-map
