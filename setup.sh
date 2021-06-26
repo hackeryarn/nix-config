@@ -31,14 +31,28 @@ sudo pacman -S yay \
 	pcre \
 	libreoffice-fresh \
 	jdk-openjdk \
-	leiningen
+	leiningen \
+	libvirt \
+	qemu-arch-extra \
+	ebtables \
+	dnsmasq \
+	postgresql \
+	mariadb \
+	alacritty \
+	solr \
+	tidy \
+	shfmt \
+	prettier \
+	stylelint
 
 yay -S direnv \
 	slack-desktop \
 	zoom \
 	kwin-scripts-tiling \
 	roswell \
-	stumpwm
+	stumpwm \
+	nixfm \
+	js-beautify-git
 
 curl -L https://nixos.org/nix/install | sh
 

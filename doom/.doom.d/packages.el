@@ -49,3 +49,6 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+(package! modus-exporter
+  :recipe (:type git :host github :repo "polaris64/modus-exporter" :files ("*.el" "exporters")))

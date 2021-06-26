@@ -31,12 +31,34 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
+(after! org
+  (setq org-agenda-todo-ignore-scheduled 'future)
+  (setq org-agenda-span 3)
+  (setq org-agenda-custom-commands
+        '(("n" "Daily tasks"
+           ((agenda "" nil)
+            (todo "STRT" nil)
+            (todo "LOOP" nil)
+            (todo "TODO" nil)
+            (todo "WAIT" nil)
+            (todo "HOLD" nil))
+           nil)
+          ("i" "IDEA"
+           ((agenda "" nil)
+            (todo "IDEA" nil)))))
+  (push '("i" "Idea" entry
+           (file+headline +org-capture-todo-file "Inbox")
+           "* IDEA %?\n%i\n%a" :prepend t)
+        org-capture-templates))
+
+
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
 ;; Theme config
 (after! modus-operandi-theme
+  (setq modus-operandi-theme-override-colors-alist '(()))
   (setq modus-themes-slanted-constructs t)
   (setq modus-themes-bold-constructs nil)
   (setq modus-themes-paren-match 'intense))
@@ -81,11 +103,13 @@
   (flycheck-remove-next-checker 'python-flake8 'python-mypy))
 
 (after! python
-  (setq-hook! 'python-mode-hook +format-with :none)
-  (setq-hook! 'python-mode-hook +format-with-lsp t)
   (setq py-isort-options '("--profile=django"))
+  (setq lsp-pylsp-configuration-sources '("flake8"))
+  (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
+  (setq +python-jupyter-repl-args '("--simple-prompt"))
   (add-hook! 'python-mode-hook
-    (add-hook 'before-save-hook '+format/buffer 0 t)))
+    (add-hook 'before-save-hook '+format/buffer 0 t)
+    (add-hook 'before-save-hook 'py-isort-before-save)))
 
 (after! esh-mode
   (map! :map eshell-mode-map
@@ -138,3 +162,15 @@
                 (format "%s new-book %s '%s'" +drn/bin-path dir title)))
     (goto-char (point-min))
     (forward-line 5)))
+
+(defun setup-bro ()
+  (interactive)
+  (+workspace-switch "bro" t)
+  (find-file "~/horizon/bro/manage.py")
+  (+eshell/toggle nil))
+
+(defun setup-bro-clj ()
+  (interactive)
+  (+workspace-switch "clj" t)
+  (find-file "~/horizon/bro/clj/project.clj")
+  (cider-jack-in-cljs '(:cljs-repl-type bro)))
