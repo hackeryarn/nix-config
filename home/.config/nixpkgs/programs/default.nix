@@ -1,4 +1,6 @@
 [
   ./neovim
   ./alacritty
+  ./rofi
+  ./fish
 ]

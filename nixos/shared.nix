@@ -1,50 +1,84 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./tmux.nix ./systemPackages.nix ];
-
   nix = {
-    package = pkgs.nixFlakes;
+    autoOptimiseStore = true;
+
+    # Automate garbage collection
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
       keep-derivations = true
     '';
-  };
-  # Enable virtualization
-  boot.extraModprobeConfig = "options kvm_intel nested=1";
 
-  virtualisation.libvirtd.enable = true;
-  virtualisation.docker.enable = true;
+    # Required by cachix to be used an non-root user
+    trustedUser = ["root" "artem"];
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  # networking.useDHCP = false;
-  # networking.interfaces.enp111s0.useDHCP = true;
-  # networking.interfaces.wlp113s0.useDHCP = true;
+  networking = {
+    hostName = "nixos"; # Define your hostname.
+    # Enable wireless support and openvpn via network manager.
+    networkmanager = {
+      enable   = true;
+      packages = [ pkgs.networkmanager_openvpn ];
+    };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
+    # Per-interface useDHCP will be mandatory in the future, so this generated config
+    # replicates the default behaviour.
+    useDHCP = false;
+  };
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
+  # Set your time zone.
+  time.timeZone = "America/Chicago";
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+  ];
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  # Enable virtualization
+  boot.extraModprobeConfig = "options kvm_intel nested=1";
+
+  virtualisation = {
+    libvirtd.enable = true;
+    docker = {
+     enable = true;
+     autoPrune = {
+       enable = true;
+       dates = "weekly";
+     };
+    };
+  };
+
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
-
-  # Set your time zone.
-  time.timeZone = "America/Chicago";
 
   nixpkgs.config = { allowUnfree = true; };
 
@@ -59,15 +93,6 @@
     # Enable resdshift for better screen color
     redshift.enable = true;
   };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  #   pinentryFlavor = "gnome3";
-  # };
 
   # List services that you want to enable:
 
@@ -90,7 +115,10 @@
   };
 
   # Enable sound.
-  sound.enable = true;
+  sound = {
+    enable = true;
+    mediaKeys.enable = true;
+  };
   hardware.pulseaudio = {
     enable = true;
     support32Bit = true;
@@ -110,6 +138,8 @@
     # Set caplock as ctrl
     xkbOptions = "ctrl:nocaps";
   };
+
+  programs.fish.enable = true;
 
   # Ignore lid close when docked
   services.logind.lidSwitchDocked = "ignore";

@@ -69,12 +69,11 @@
 (load-module "stumptray")
 (stumptray::stumptray)
 
-(ql:quickload "py-configparser")
-(ql:quickload "FiveAM")
-(load-module "desktop-entry")
-(desktop-entry:init-entry-list)
-(define-key *root-map* (kbd "m") "show-desktop-menu")
+(defcommand rofi () ()
+  (run-shell-command "rofi -modi drun,ssh,window -show drun -show-icons"))
 
+(define-key *root-map* (kbd "m") "rofi")
+ 
 (load-module "end-session")
 
 ;;; Configs
@@ -101,7 +100,7 @@
     (0 t nil :instance "brave")
     (1 t nil :instance "emacs")
     (1 t nil :instance "alacritty"))
-  (run-shell-command "alacritty")
+  (run-shell-command "konsole")
   (run-shell-command "emacs")
   (run-shell-command "brave --new-window 'http://localhost:3449/#/'")
   (run-shell-command "brave --new-window 'code.hzi.io/horizonweb'"))

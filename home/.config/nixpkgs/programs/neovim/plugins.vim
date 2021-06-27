@@ -44,10 +44,16 @@ let g:ale_fixers = {
       \ 'haskell': ['brittany'],
       \ 'nix': ['nixfmt'],
       \ }
+
 let g:ale_completion_autoimport = 1
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
+let g:ale_cursor_detail = 1
+let g:ale_floating_preview = 1
+let g:ale_detail_to_floating_preview = 1
+let g:ale_hover_to_floating_preview = 1
+set mouse="a"
 " set omnifunc=ale#completion#OmniFunc
 
 nmap <silent> [d <Plug>(ale_go_to_definition)

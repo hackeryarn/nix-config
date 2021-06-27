@@ -27,6 +27,7 @@ display=Display\tMeta+P,Display\tMeta+P,Switch Display
 
 [khotkeys]
 _k_friendly_name=Custom Shortcuts Service
+{176bb809-5e2c-4b3f-8909-80b3d9214506}=Meta+Space,none,New Action
 {21c44af1-419e-434f-bb3d-eb07c6520054}=,none,Launch Konsole
 {d03619b6-9b3c-48cc-9d9c-a2aadb485550}=none,none,Search
 
