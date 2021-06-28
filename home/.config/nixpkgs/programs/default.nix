@@ -3,4 +3,5 @@
   ./alacritty
   ./rofi
   ./fish
+  ./tmux
 ]

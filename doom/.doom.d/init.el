@@ -22,7 +22,7 @@
        company           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy               ; a search engine for love and life
+       (ivy +fuzzy +prescient +all-the-icons-ivy)               ; a search engine for love and life
 
        :ui
        deft              ; notational velocity for Emacs
@@ -146,7 +146,7 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        purescript        ; javascript, but functional
-       (python +lsp)     ; beautiful is better than ugly
+       (python +lsp +pyright)     ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        (racket +xp)            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6

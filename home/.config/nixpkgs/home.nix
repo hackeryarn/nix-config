@@ -16,6 +16,7 @@ let
     ripgrep
     tldr
     xclip
+    multilockscreen
   ];
 
   haskellPkgs = with pkgs.haskellPackages; [

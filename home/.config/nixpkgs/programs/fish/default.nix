@@ -22,7 +22,6 @@ let
   };
 
   fishConfig = ''
-    bind \t accept-autosuggestion
     set fish_greeting
   '' + fzfConfig + themeConfig;
 in
@@ -34,7 +33,7 @@ in
       eval (direnv hook fish)
       any-nix-shell fish --info-right | source
     '';
-        shellAliases = {
+    shellAliases = {
       cat  = "bat";
       dc   = "docker-compose";
       dps  = "docker-compose ps";
