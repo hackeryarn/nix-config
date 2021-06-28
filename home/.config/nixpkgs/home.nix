@@ -16,6 +16,8 @@ let
     ripgrep
     tldr
     xclip
+    git
+    stow
   ];
 
   haskellPkgs = with pkgs.haskellPackages; [
@@ -28,12 +30,10 @@ let
     nix-tree
   ];
 
-  # Not used for now
   polybarPkgs = with pkgs; [
     font-awesome-ttf
   ];
 
-  # Not used for now
   xmonadPkgs = with pkgs; [
     networkmanager_dmenu
     networkmanagerapplet
@@ -44,7 +44,6 @@ let
     xorg.xrandr
   ];
 
-  # Not used for now
   scripts = pkgs.callPackage ./scripts/default.nix { inherit config pkgs; };
 
 in
@@ -66,9 +65,10 @@ in
     homeDirectory = "/home/artem";
     stateVersion = "21.05";
 
-    packages = defaultPkgs ++ haskellPkgs;
+    packages = defaultPkgs ++ haskellPkgs ++ polybarPkgs ++ xmonadPkgs ++ scripts;
 
     sessionVariables = {
+      DISPLAY = ":0";
       EDITOR = "nvim";
     };
   };

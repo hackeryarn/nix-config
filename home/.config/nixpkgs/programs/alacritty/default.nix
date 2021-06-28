@@ -32,6 +32,12 @@
           white =   "#fdf6e3";
         };
       };
+      font = {
+        normal = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Medium";
+        };
+      };
     };
   };
 }

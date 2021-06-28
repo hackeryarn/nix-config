@@ -2,6 +2,7 @@
 
 {
   nix = {
+    package = pkgs.nixUnstable;
     autoOptimiseStore = true;
 
     # Automate garbage collection
@@ -18,13 +19,13 @@
     '';
 
     # Required by cachix to be used an non-root user
-    trustedUser = ["root" "artem"];
+    trustedUsers = ["root" "artem"];
   };
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+  };
 
   networking = {
     hostName = "nixos"; # Define your hostname.
@@ -51,6 +52,8 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    firefox
+    xterm
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -62,10 +65,7 @@
   };
 
   # Enable virtualization
-  boot.extraModprobeConfig = "options kvm_intel nested=1";
-
   virtualisation = {
-    libvirtd.enable = true;
     docker = {
      enable = true;
      autoPrune = {
@@ -82,14 +82,9 @@
 
   nixpkgs.config = { allowUnfree = true; };
 
-  environment.pathsToLink = [ "/share/nix-direnv" ];
-
   location.provider = "geoclue2";
 
   services = {
-    # Enable emacs service
-    emacs.enable = true;
-
     # Enable resdshift for better screen color
     redshift.enable = true;
   };
@@ -109,10 +104,10 @@
   services.printing.enable = true;
 
   # Enable graphics.
-  hardware.opengl = {
-    enable = true;
-    driSupport32Bit = true;
-  };
+  # hardware.opengl = {
+   # enable = true;
+   # driSupport32Bit = true;
+  # };
 
   # Enable sound.
   sound = {

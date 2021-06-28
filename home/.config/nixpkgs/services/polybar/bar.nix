@@ -1,9 +1,9 @@
-{ font0 ? 16, font1 ? 18, font2 ? 40, font3 ? 28, font4 ? 7 }:
+{ }:
 
 let
   bar = ''
 [bar/main]
-monitor = ''${env:MONITOR:eDP}
+monitor = ''${env:MONITOR:HDMI-0}
 width = 100%
 height = 48
 radius = 6.0

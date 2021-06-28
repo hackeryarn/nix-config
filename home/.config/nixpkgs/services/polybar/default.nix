@@ -11,15 +11,18 @@ let
   colors = builtins.readFile ./colors.ini;
   mods = builtins.readFile ./modules.ini;
   networkScript   = pkgs.callPackage ./scripts/network.nix {};
-
+  monitorScript   = pkgs.callPackage ./scripts/monitor.nix {};
+  customMods = mainBar;
 in
 {
   services.polybar = {
     enable = true;
     package = mypolybar;
     config = ./config.ini;
-    extraConfig = bars + colors + mods;
+    extraConfig = bars + colors + mods + customMods;
     script = ''
+      export MONITOR=$(${monitorScript}/bin/monitor)
+      echo "Running polybar on $MONITOR"
       export ETH_INTERFACE=$(${networkScript}/bin/check-network eth)
       export WIFI_INTERFACE=$(${networkScript}/bin/check-network wifi)
       echo "Network interfaces $ETH_INTERFACE & $WIFI_INTERFACE"

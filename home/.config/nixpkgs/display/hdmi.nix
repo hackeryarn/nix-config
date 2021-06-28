@@ -6,11 +6,6 @@ let
 
   hdmiBar = pkgs.callPackage ../services/polybar/bar.nix {};
 
-  myspotify = import ../programs/spotify/default.nix {
-    opts = "-force-device-scale-factor=1.4 %U";
-    inherit pkgs;
-  };
-
   statusBar = import ../services/polybar/default.nix {
     inherit config pkgs;
     mainBar = hdmiBar;
@@ -26,5 +21,5 @@ in
     terminal
   ];
 
-  home.packages = base.home.packages ++ [ myspotify ];
+  home.packages = base.home.packages;
 }

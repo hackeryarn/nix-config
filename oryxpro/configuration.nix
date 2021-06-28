@@ -1,17 +1,33 @@
 { config, pkgs, ... }:
 
+let
+  customFonts = pkgs.nerdfonts.override {
+    fonts = [
+      "JetBrainsMono"
+      "Iosevka"
+    ];
+  };
+
+  myfonts = pkgs.callPackage nixos/fonts/default.nix { inherit pkgs; };
+in
 {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../nixos/shared.nix
-    ../nixos/wm/xmonad.nix
+    ./nixos/shared.nix
+    ./nixos/wm/xmonad.nix
+  ];
+
+  fonts.fonts = with pkgs; [
+    customFonts
+    font-awesome-ttf
+    myfonts.icomoon-feather
   ];
 
   environment.systemPackages = with pkgs; [ lutris ];
 
   # Enable nvidia
   services.xserver.videoDriver = "nvidia";
-
+  
   # Open VPN
   # services.openvpn.servers = {
   #   horizonVPN = {
