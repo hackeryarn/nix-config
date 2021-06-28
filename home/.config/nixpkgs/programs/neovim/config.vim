@@ -36,6 +36,7 @@ set termguicolors
 " Other options
 syntax on
 set background=light
+let g:solarized_termcolors=256
 colorscheme solarized
 set backspace=2
 set laststatus=2

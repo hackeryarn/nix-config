@@ -1,7 +1,9 @@
 [
-  ./neovim
-  ./alacritty
-  ./rofi
   ./fish
+  ./neovim
+  ./rofi
   ./xmonad
+  ./tmux
+  ./dconf
+  ./networkmanager
 ]

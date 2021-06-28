@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ fontSize, pkgs, ... }:
 
 {
   programs.alacritty = {
@@ -37,6 +37,7 @@
           family = "JetBrainsMono Nerd Font";
           style = "Medium";
         };
+        size = fontSize;
       };
     };
   };

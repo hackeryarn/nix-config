@@ -31,6 +31,7 @@
     normal-foreground:           var(foreground);
     alternate-urgent-foreground: var(red);
     selected-normal-background:  var(lightfg);
+    font:                        "JetBrainsMono Nerd Font 24";
 }
 window {
     padding:          5;
@@ -45,6 +46,7 @@ message {
     padding:      1px ;
     border-color: var(separatorcolor);
     border:       2px dash 0px 0px ;
+    font:         "JetBrainsMono Nerd Font 20";
 }
 textbox {
     text-color: var(foreground);
@@ -119,6 +121,7 @@ button selected {
 inputbar {
     padding:    1px ;
     spacing:    0px ;
+    font:       "JetBrainsMono Nerd Font 30";
     text-color: var(normal-foreground);
     children:   [ prompt,textbox-prompt-colon,entry,overlay,case-indicator ];
 }

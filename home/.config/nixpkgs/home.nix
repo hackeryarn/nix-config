@@ -9,6 +9,7 @@ let
     dive
     exa
     fd
+    git
     ncdu
     nix-doc
     nix-index
@@ -16,8 +17,9 @@ let
     ripgrep
     tldr
     xclip
-    git
     stow
+    sqlite
+    multilockscreen
   ];
 
   haskellPkgs = with pkgs.haskellPackages; [

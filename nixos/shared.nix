@@ -104,10 +104,10 @@
   services.printing.enable = true;
 
   # Enable graphics.
-  # hardware.opengl = {
-   # enable = true;
-   # driSupport32Bit = true;
-  # };
+  hardware.opengl = {
+   enable = true;
+   driSupport32Bit = true;
+  };
 
   # Enable sound.
   sound = {
@@ -123,6 +123,7 @@
 
   # Ignore lid close when docked
   services.logind.lidSwitchDocked = "ignore";
+  services.logind.lidSwitchExternalPower = "ignore";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

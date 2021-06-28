@@ -12,7 +12,7 @@ let
     openCalendar = "${pkgs.gnome3.gnome-calendar}/bin/gnome-calendar";
   };
 
-  terminal  = import ../programs/alacritty/default.nix { fontSize = 10; inherit pkgs; };
+  terminal  = import ../programs/alacritty/default.nix { fontSize = 14; inherit pkgs; };
 in
 {
   imports = [

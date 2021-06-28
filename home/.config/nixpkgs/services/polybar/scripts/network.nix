@@ -10,8 +10,8 @@ let
   wifi1 = "wlp1s0";
 
   # Dell XPS
-  eth2  = "enp62s0u1u3";
-  wifi2 = "wlp2s0";
+  eth2  = "enp109s0u1u1";
+  wifi2 = "wlp113s0";
 in
   pkgs.writeShellScriptBin "check-network" ''
     if [[ $1 = "eth" ]]; then

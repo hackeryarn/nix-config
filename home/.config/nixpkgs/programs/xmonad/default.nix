@@ -10,11 +10,13 @@ let
   polybarOpts = ''
     ${pkgs.nitrogen}/bin/nitrogen --restore &
     ${pkgs.pasystray}/bin/pasystray &
+    ${pkgs.blueman}/bin/blueman-applet &
+    ${pkgs.gnome3.networkmanagerapplet}/bin/nm-applet --sm-disable --indicator &
   '';
 in
 {
   xresources.properties = {
-    "Xft.dpi" = 141;
+    "Xft.dpi" = 96;
     "Xft.autohint" = 0;
     "Xft.hintstyle" = "hintfull";
     "Xft.hinting" = 1;
