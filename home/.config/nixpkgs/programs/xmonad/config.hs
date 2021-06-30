@@ -9,6 +9,7 @@ import           System.IO                      ( hClose
                                                 , hPutStr
                                                 )
 import           XMonad
+import           XMonad.Actions.DynamicProjects
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.EwmhDesktops      ( ewmh
                                                 , ewmhDesktopsEventHook
@@ -34,6 +35,10 @@ import           XMonad.Layout.MultiToggle.Instances
 import           XMonad.Layout.NoBorders        ( smartBorders )
 import           XMonad.Layout.Spacing          ( spacing )
 import           XMonad.Layout.ThreeColumns     ( ThreeCol(..) )
+import           XMonad.Prompt                  ( XPConfig(..)
+                                                , XPPosition(CenteredAt)
+                                                , amberXPConfig
+                                                )
 import qualified XMonad.StackSet               as W
 import           XMonad.Util.CustomKeys
 import           XMonad.Util.NamedActions       ( NamedAction(..)
@@ -53,23 +58,25 @@ main :: IO ()
 main = mkDbusClient >>= main'
 
 main' :: D.Client -> IO ()
-main' dbus = xmonad . docks . ewmh . urgencyHook $ def
+main' dbus = xmonad . docks . ewmh . dynamicProjects' . urgencyHook $ def
   { terminal           = myTerminal
-  , focusFollowsMouse  = True
+  , focusFollowsMouse  = False
   , clickJustFocuses   = False
   , borderWidth        = 3
   , modMask            = myModMask
   , layoutHook         = myLayout
   , keys               = customKeys delkeys inskeys
-  , normalBorderColor  = "#dddddd"
-  , focusedBorderColor = "#1681f2"
+  , normalBorderColor  = "#FDF6E3"
+  , focusedBorderColor = "#268bd2"
+  , workspaces         = myWS
+  , handleEventHook    = myEventHook
   , logHook            = myPolybarLogHook dbus
   , startupHook        = myStartupHook
-  , handleEventHook    = myEventHook
   }
  where
-  myModMask   = mod4Mask
-  urgencyHook = withUrgencyHook LibNotifyUrgencyHook
+  myModMask        = mod4Mask
+  dynamicProjects' = dynamicProjects projects
+  urgencyHook      = withUrgencyHook LibNotifyUrgencyHook
 
 myStartupHook = startupHook def
 
@@ -87,7 +94,6 @@ myTerminal = "alacritty"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
---
 
 delkeys conf@XConfig { XMonad.modMask = modm } = []
 
@@ -99,7 +105,9 @@ inskeys conf@XConfig { XMonad.modMask = modm } =
   , ((modm .|. shiftMask, xK_space), sendMessage NextLayout)
   , ((modm, xK_f)                  , sendMessage (Toggle NBFULL))
   , ((modm, xK_equal)              , spawn "polybar-msg cmd toggle &")
-  , ((modm, xK_l)                  , spawn "multilockscreen -l dim")
+  , ((modm, xK_s)                  , spawn "systemctl suspend")
+  , ((modm, xK_c)                  , spawn "flameshot gui -p ~/Pictures")
+  , ((modm, xK_a)                  , switchProjectPrompt projectsTheme)
   ]
 
 
@@ -142,6 +150,78 @@ myLayout =
   fullScreenToggle = mkToggle (single NBFULL)
 
 ------------------------------------------------------------------------
+-- Workspaces
+sysWs = "sys"
+workWs = "wrk"
+comWs = "com"
+ossWs = "oss"
+devWs = "dev"
+etcWs = "etc"
+
+myWS :: [WorkspaceId]
+myWS = [sysWs, workWs, comWs, ossWs, devWs, etcWs]
+
+------------------------------------------------------------------------
+-- Dynamic Projects
+
+projects :: [Project]
+projects =
+  [ Project
+    { projectName      = sysWs
+    , projectDirectory = "~/etc/nixos/"
+    , projectStartHook = Just $ do
+                           spawn "firefox github.com"
+                           spawn "emacs"
+                           spawn $ myTerminal <> " -e sudo su"
+    }
+  , Project
+    { projectName      = workWs
+    , projectDirectory = "~/horizon"
+    , projectStartHook = Just $ do
+                           spawn "brave"
+                           spawn "emacs"
+                           spawn "firefox code.hzi.io"
+    }
+  , Project
+    { projectName      = comWs
+    , projectDirectory = "~/"
+    , projectStartHook = Just $ do
+                           spawn "signal-desktop --use-tray-icon"
+                           spawn "firefox gmail.com"
+                           spawn "slack"
+    }
+  , Project
+    { projectName      = ossWs
+    , projectDirectory = "~/oss"
+    , projectStartHook = Just $ do
+                           spawn "firefox github.com"
+                           spawn "emacs"
+                           spawn myTerminal
+    }
+  , Project
+    { projectName      = devWs
+    , projectDirectory = "~/code"
+    , projectStartHook = Just $ do
+                           spawn "evince"
+                           spawn "emacs"
+                           spawn "firefox github.com"
+    }
+  , Project { projectName      = etcWs
+            , projectDirectory = "~/"
+            , projectStartHook = Nothing
+            }
+  ]
+
+projectsTheme :: XPConfig
+projectsTheme = amberXPConfig
+  { bgHLight = "#002b36"
+  , font     = "xft:Bitstream Vera Sans Mono:size=8:antialias=true"
+  , height   = 50
+  , position = CenteredAt 0.5 0.5
+  }
+
+
+------------------------------------------------------------------------
 -- Polybar settings (needs DBus client).
 
 mkDbusClient :: IO D.Client
@@ -155,7 +235,7 @@ mkDbusClient = do
 dbusOutput :: D.Client -> String -> IO ()
 dbusOutput dbus str =
   let opath  = D.objectPath_ "/org/xmonad/Log"
-      iname  = D.interfaceName_ "xorg.monad.Log"
+      iname  = D.interfaceName_ "org.xmonad.Log"
       mname  = D.memberName_ "Update"
       signal = D.signal opath iname mname
       body   = [D.toVariant $ UTF8.decodeString str]
@@ -165,18 +245,19 @@ polybarHook :: D.Client -> PP
 polybarHook dbus =
   let wrapper c s | s /= "NSP" = wrap ("%{F" <> c <> "} ") " %{F-}" s
                   | otherwise  = mempty
-      blue   = "#2E9AFE"
-      gray   = "#7F7F7F"
-      orange = "#ea4300"
-      purple = "#9058c7"
-      red    = "#722222"
+      blue   = "#268bd2"
+      gray   = "#96A7A9"
+      orange = "#cb4b16"
+      purple = "#6c71c4"
+      red    = "#dc322f"
   in  def { ppOutput          = dbusOutput dbus
           , ppCurrent         = wrapper blue
           , ppVisible         = wrapper gray
           , ppUrgent          = wrapper orange
           , ppHidden          = wrapper gray
           , ppHiddenNoWindows = wrapper red
-          , ppTitle           = wrapper purple . shorten 90
+          , ppOrder           = \(ws : _ : t : _) -> [ws, t]
+          , ppTitle           = wrapper purple . shorten 80
           }
 
 myPolybarLogHook dbus = myLogHook <+> dynamicLogWithPP (polybarHook dbus)

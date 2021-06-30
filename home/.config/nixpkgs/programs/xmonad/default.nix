@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
 let
   extra = ''
@@ -13,8 +13,7 @@ let
     ${pkgs.blueman}/bin/blueman-applet &
     ${pkgs.gnome3.networkmanagerapplet}/bin/nm-applet --sm-disable --indicator &
   '';
-in
-{
+in {
   xresources.properties = {
     "Xft.dpi" = 96;
     "Xft.autohint" = 0;
@@ -22,8 +21,8 @@ in
     "Xft.hinting" = 1;
     "Xft.antialias" = 1;
     "Xft.rgba" = "rgb";
-    "Xcursor*theme" = "Vanilla-DMZ-AA";
-    "Xcursor*size" = 24;
+    "Xcursor.theme" = "Numix-Cursor";
+    "Xcursor.size" = 24;
   };
   xsession = {
     enable = true;
@@ -33,10 +32,7 @@ in
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      extraPackages = hp: [
-        hp.dbus
-        hp.monad-logger
-      ];
+      extraPackages = hp: [ hp.dbus hp.monad-logger ];
       config = ./config.hs;
     };
   };

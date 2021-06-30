@@ -19,19 +19,20 @@
     '';
 
     # Required by cachix to be used an non-root user
-    trustedUsers = ["root" "artem"];
+    trustedUsers = [ "root" "artem" ];
   };
 
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
+    extraModprobeConfig = "options kvm_intel nested=1";
   };
 
   networking = {
     hostName = "nixos"; # Define your hostname.
     # Enable wireless support and openvpn via network manager.
     networkmanager = {
-      enable   = true;
+      enable = true;
       packages = [ pkgs.networkmanager_openvpn ];
     };
 
@@ -49,12 +50,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    firefox
-    xterm
-  ];
+  environment.systemPackages = with pkgs; [ vim wget firefox xterm ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -66,12 +62,14 @@
 
   # Enable virtualization
   virtualisation = {
+    libvirtd.enable = true;
+
     docker = {
-     enable = true;
-     autoPrune = {
-       enable = true;
-       dates = "weekly";
-     };
+      enable = true;
+      autoPrune = {
+        enable = true;
+        dates = "weekly";
+      };
     };
   };
 
@@ -103,12 +101,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable graphics.
-  hardware.opengl = {
-   enable = true;
-   driSupport32Bit = true;
-  };
-
   # Enable sound.
   sound = {
     enable = true;
@@ -122,8 +114,11 @@
   programs.fish.enable = true;
 
   # Ignore lid close when docked
-  services.logind.lidSwitchDocked = "ignore";
-  services.logind.lidSwitchExternalPower = "ignore";
+  services.logind = {
+    lidSwitchDocked = "ignore";
+    lidSwitchExternalPower = "ignore";
+    extraConfig = "HandleLidSwitch=ignore";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

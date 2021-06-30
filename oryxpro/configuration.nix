@@ -1,16 +1,10 @@
 { config, pkgs, ... }:
 
 let
-  customFonts = pkgs.nerdfonts.override {
-    fonts = [
-      "JetBrainsMono"
-      "Iosevka"
-    ];
-  };
+  customFonts = pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; };
 
   myfonts = pkgs.callPackage nixos/fonts/default.nix { inherit pkgs; };
-in
-{
+in {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./nixos/shared.nix
@@ -27,7 +21,7 @@ in
 
   # Enable nvidia
   services.xserver.videoDriver = "nvidia";
-  
+
   # Open VPN
   # services.openvpn.servers = {
   #   horizonVPN = {
@@ -40,7 +34,7 @@ in
     isNormalUser = true;
     home = "/home/artem";
     description = "Artem Chernyak";
-    shell =  pkgs.fish;
+    shell = pkgs.fish;
     extraGroups = [
       "wheel"
       "networkmanager"

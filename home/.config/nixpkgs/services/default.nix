@@ -1,4 +1,1 @@
-[
-  ./picom
-  ./screenlocker
-]
+[ ./picom ./screenlocker ./udiskie ]

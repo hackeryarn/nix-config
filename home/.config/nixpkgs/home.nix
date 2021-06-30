@@ -4,22 +4,34 @@ let
   defaultPkgs = with pkgs; [
     any-nix-shell
     arandr
+    brave
     cachix
-    docker-compose
     dive
+    docker-compose
     exa
     fd
     git
+    multilockscreen
     ncdu
+    nixfmt
     nix-doc
     nix-index
-    rnix-lsp
     ripgrep
+    rnix-lsp
+    signal-desktop
+    slack
+    sqlite
+    stow
     tldr
     xclip
-    stow
-    sqlite
-    multilockscreen
+    zoom
+  ];
+
+  gnomePkgs = with pkgs.gnome3; [
+    eog # image viewer
+    evince # pdf reader
+    gnome-calendar # calendar
+    nautilus # file manager
   ];
 
   haskellPkgs = with pkgs.haskellPackages; [
@@ -32,14 +44,13 @@ let
     nix-tree
   ];
 
-  polybarPkgs = with pkgs; [
-    font-awesome-ttf
-  ];
+  polybarPkgs = with pkgs; [ font-awesome-ttf ];
 
   xmonadPkgs = with pkgs; [
     networkmanager_dmenu
     networkmanagerapplet
     nitrogen
+    numix-cursor-theme
     xcape
     xorg.xkbcomp
     xorg.xmodmap
@@ -48,17 +59,13 @@ let
 
   scripts = pkgs.callPackage ./scripts/default.nix { inherit config pkgs; };
 
-in
-{
+in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  nixpkgs.config = { allowUnfree = true; };
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
-  imports =  (import ./programs) ++ (import ./services);
+  imports = (import ./programs) ++ (import ./services) ++ [ (import ./themes) ];
 
   xdg.enable = true;
 
@@ -67,7 +74,8 @@ in
     homeDirectory = "/home/artem";
     stateVersion = "21.05";
 
-    packages = defaultPkgs ++ haskellPkgs ++ polybarPkgs ++ xmonadPkgs ++ scripts;
+    packages = defaultPkgs ++ haskellPkgs ++ polybarPkgs ++ xmonadPkgs
+      ++ gnomePkgs ++ scripts;
 
     sessionVariables = {
       DISPLAY = ":0";
@@ -114,4 +122,7 @@ in
       enableFishIntegration = true;
     };
   };
+
+  # Screenshots
+  services.flameshot.enable = true;
 }

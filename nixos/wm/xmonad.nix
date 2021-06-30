@@ -28,6 +28,7 @@
         enable = true;
         touchpad.disableWhileTyping = true;
       };
+
       xkbOptions = "caps:ctrl_modifier";
     };
   };
