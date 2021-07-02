@@ -10,12 +10,14 @@ let
     docker-compose
     exa
     fd
+    fractal
     git
     multilockscreen
     ncdu
     nixfmt
     nix-doc
     nix-index
+    nodejs
     ripgrep
     rnix-lsp
     signal-desktop
@@ -112,7 +114,7 @@ in {
 
     direnv = {
       enable = true;
-      enableZshIntegration = true;
+      enableBashIntegration = true;
       enableFishIntegration = true;
       nix-direnv.enable = true;
     };
@@ -124,5 +126,11 @@ in {
   };
 
   # Screenshots
-  services.flameshot.enable = true;
+  services = {
+    flameshot.enable = true;
+    redshift = {
+      enable = true;
+      provider = "geoclue2";
+    };
+  };
 }
