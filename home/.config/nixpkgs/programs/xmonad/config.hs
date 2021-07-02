@@ -9,7 +9,6 @@ import           System.IO                      ( hClose
                                                 , hPutStr
                                                 )
 import           XMonad
-import           XMonad.Actions.DynamicProjects
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.EwmhDesktops      ( ewmh
                                                 , ewmhDesktopsEventHook
@@ -58,7 +57,7 @@ main :: IO ()
 main = mkDbusClient >>= main'
 
 main' :: D.Client -> IO ()
-main' dbus = xmonad . docks . ewmh . dynamicProjects' . urgencyHook $ def
+main' dbus = xmonad . docks . ewmh . urgencyHook $ def
   { terminal           = myTerminal
   , focusFollowsMouse  = False
   , clickJustFocuses   = False
@@ -74,9 +73,8 @@ main' dbus = xmonad . docks . ewmh . dynamicProjects' . urgencyHook $ def
   , startupHook        = myStartupHook
   }
  where
-  myModMask        = mod4Mask
-  dynamicProjects' = dynamicProjects projects
-  urgencyHook      = withUrgencyHook LibNotifyUrgencyHook
+  myModMask   = mod4Mask
+  urgencyHook = withUrgencyHook LibNotifyUrgencyHook
 
 myStartupHook = startupHook def
 
@@ -107,7 +105,6 @@ inskeys conf@XConfig { XMonad.modMask = modm } =
   , ((modm, xK_equal)              , spawn "polybar-msg cmd toggle &")
   , ((modm, xK_s)                  , spawn "systemctl suspend")
   , ((modm, xK_c)                  , spawn "flameshot gui -p ~/Pictures")
-  , ((modm, xK_a)                  , switchProjectPrompt projectsTheme)
   ]
 
 
@@ -160,65 +157,6 @@ etcWs = "etc"
 
 myWS :: [WorkspaceId]
 myWS = [sysWs, workWs, comWs, ossWs, devWs, etcWs]
-
-------------------------------------------------------------------------
--- Dynamic Projects
-
-projects :: [Project]
-projects =
-  [ Project
-    { projectName      = sysWs
-    , projectDirectory = "~/etc/nixos/"
-    , projectStartHook = Just $ do
-                           spawn "firefox github.com"
-                           spawn "emacs"
-                           spawn $ myTerminal <> " -e sudo su"
-    }
-  , Project
-    { projectName      = workWs
-    , projectDirectory = "~/horizon"
-    , projectStartHook = Just $ do
-                           spawn "brave"
-                           spawn "emacs"
-                           spawn "firefox code.hzi.io"
-    }
-  , Project
-    { projectName      = comWs
-    , projectDirectory = "~/"
-    , projectStartHook = Just $ do
-                           spawn "signal-desktop --use-tray-icon"
-                           spawn "firefox gmail.com"
-                           spawn "slack"
-    }
-  , Project
-    { projectName      = ossWs
-    , projectDirectory = "~/oss"
-    , projectStartHook = Just $ do
-                           spawn "firefox github.com"
-                           spawn "emacs"
-                           spawn myTerminal
-    }
-  , Project
-    { projectName      = devWs
-    , projectDirectory = "~/code"
-    , projectStartHook = Just $ do
-                           spawn "evince"
-                           spawn "emacs"
-                           spawn "firefox github.com"
-    }
-  , Project { projectName      = etcWs
-            , projectDirectory = "~/"
-            , projectStartHook = Nothing
-            }
-  ]
-
-projectsTheme :: XPConfig
-projectsTheme = amberXPConfig
-  { bgHLight = "#002b36"
-  , font     = "xft:Bitstream Vera Sans Mono:size=8:antialias=true"
-  , height   = 50
-  , position = CenteredAt 0.5 0.5
-  }
 
 
 ------------------------------------------------------------------------
