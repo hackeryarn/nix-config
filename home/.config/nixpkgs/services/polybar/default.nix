@@ -1,34 +1,29 @@
-{ mainBar, openCalendar, config, pkgs, ...}:
+{ mainBar, openCalendar, config, pkgs, ... }:
 
 let
   browser = "${pkgs.firefox}/bin/firefox";
 
-    xdgUtils = pkgs.xdg_utils.overrideAttrs (
-    old: {
-      nativeBuildInputs = old.nativeBuildInputs or [] ++ [ pkgs.makeWrapper ];
-      postInstall = old.postInstall + "\n" + ''
-        wrapProgram $out/bin/xdg-open --suffix PATH : /run/current-system/sw/bin --suffix BROWSER : ${browser}
-      '';
-    }
-  );
-
-  openGithub = "${xdgUtils}/bin/xdg-open https\\://github.com/notifications";
+  xdgUtils = pkgs.xdg_utils.overrideAttrs (old: {
+    nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ pkgs.makeWrapper ];
+    postInstall = old.postInstall + "\n" + ''
+      wrapProgram $out/bin/xdg-open --suffix PATH : /run/current-system/sw/bin --suffix BROWSER : ${browser}
+    '';
+  });
 
   mypolybar = pkgs.polybar.override {
     alsaSupport = true;
-    githubSupport = true;
     pulseSupport = true;
   };
 
   bars = builtins.readFile ./bars.ini;
   colors = builtins.readFile ./colors.ini;
   mods1 = builtins.readFile ./modules.ini;
-  mods2  = builtins.readFile ./user_modules.ini;
+  mods2 = builtins.readFile ./user_modules.ini;
 
-  bluetoothScript = pkgs.callPackage ./scripts/bluetooth.nix {};
-  monitorScript   = pkgs.callPackage ./scripts/monitor.nix {};
-  mprisScript     = pkgs.callPackage ./scripts/mpris.nix {};
-  networkScript   = pkgs.callPackage ./scripts/network.nix {};
+  bluetoothScript = pkgs.callPackage ./scripts/bluetooth.nix { };
+  monitorScript = pkgs.callPackage ./scripts/monitor.nix { };
+  mprisScript = pkgs.callPackage ./scripts/mpris.nix { };
+  networkScript = pkgs.callPackage ./scripts/network.nix { };
 
   bctl = ''
     [module/bctl]
@@ -44,14 +39,6 @@ let
     label = %{A1:${openCalendar}:}%time%%{A}
   '';
 
-  github = ''
-    [module/clickable-github]
-    inherit = module/github
-    token = ''${file:${config.xdg.configHome}/polybar/github-notifications-token}
-    user = gvolpe
-    label = %{A1:${openGithub}:}  %notifications%%{A}
-  '';
-
   xmonad = ''
     [module/xmonad]
     type = custom/script
@@ -59,9 +46,8 @@ let
     tail = true
   '';
 
-  customMods = mainBar + bctl + cal + github + xmonad;
-in
-{
+  customMods = mainBar + bctl + cal + xmonad;
+in {
   services.polybar = {
     enable = true;
     package = mypolybar;

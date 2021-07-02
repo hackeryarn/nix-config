@@ -50,7 +50,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ vim wget firefox xterm ];
+  environment.systemPackages = with pkgs; [ vim git wget stow ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -80,15 +80,6 @@
 
   nixpkgs.config = { allowUnfree = true; };
 
-  location.provider = "geoclue2";
-
-  services = {
-    # Enable resdshift for better screen color
-    redshift.enable = true;
-  };
-
-  # List services that you want to enable:
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
@@ -106,6 +97,7 @@
     enable = true;
     mediaKeys.enable = true;
   };
+
   hardware.pulseaudio = {
     enable = true;
     support32Bit = true;
