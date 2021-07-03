@@ -2,7 +2,6 @@
 
 let
   customFonts = pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; };
-
   myfonts = pkgs.callPackage nixos/fonts/default.nix { inherit pkgs; };
 in {
   imports = [ # Include the results of the hardware scan.
@@ -21,14 +20,6 @@ in {
 
   # Enable nvidia
   services.xserver.videoDriver = "nvidia";
-
-  # Open VPN
-  # services.openvpn.servers = {
-  #   horizonVPN = {
-  #     config = "config /root/nixos/openvpn/horizon.conf";
-  #     autoStart = false;
-  #   };
-  # };
 
   users.users.artem = {
     isNormalUser = true;

@@ -13,12 +13,11 @@
     };
 
     extraOptions = ''
-      experimental-features = nix-command flakes
       keep-outputs = true
       keep-derivations = true
     '';
 
-    # Required by cachix to be used an non-root user
+    # Required by cachix to be used as non-root user
     trustedUsers = [ "root" "artem" ];
   };
 
