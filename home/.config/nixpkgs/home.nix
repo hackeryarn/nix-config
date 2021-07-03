@@ -65,7 +65,12 @@ in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  nixpkgs.config = { allowUnfree = true; };
+  nixpkgs.config = {
+    allowUnfree = true;
+    packageOverrides = p: {
+      nur = import (import pinned/nur.nix) { inherit pkgs; };
+    };
+  };
 
   imports = (import ./programs) ++ (import ./services) ++ [ (import ./themes) ];
 
