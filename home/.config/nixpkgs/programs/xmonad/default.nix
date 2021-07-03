@@ -33,7 +33,7 @@ in {
       enable = true;
       enableContribAndExtras = true;
       extraPackages = hp: [ hp.dbus hp.monad-logger ];
-      config = ./config.hs;
+      config = ./xmonad-hackeryarn/app/Main.hs;
     };
   };
 }

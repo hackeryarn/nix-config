@@ -8,13 +8,41 @@ import qualified Data.Map                      as Map
 import           System.IO                      ( hClose
                                                 , hPutStr
                                                 )
-import           XMonad
-import           XMonad.Hooks.DynamicLog
-import           XMonad.Hooks.EwmhDesktops      ( ewmh
-                                                , ewmhDesktopsEventHook
-                                                , fullscreenEventHook
-                                                )
-import           XMonad.Hooks.EwmhDesktops      ( ewmh )
+import XMonad
+    ( mod4Mask,
+      shiftMask,
+      xK_Return,
+      xK_c,
+      xK_equal,
+      xK_f,
+      xK_s,
+      xK_space,
+      gets,
+      spawn,
+      (|||),
+      xmonad,
+      (<+>),
+      sendMessage,
+      (.|.),
+      Default(def),
+      WorkspaceId,
+      XConfig(XConfig, focusFollowsMouse, clickJustFocuses, borderWidth,
+              layoutHook, keys, normalBorderColor, focusedBorderColor,
+              workspaces, handleEventHook, logHook, startupHook, modMask,
+              terminal),
+      XState(windowset),
+      ChangeLayout(NextLayout),
+      Full(Full),
+      Mirror(Mirror),
+      Tall(Tall) )
+import XMonad.Hooks.DynamicLog
+    ( dynamicLogWithPP,
+      shorten,
+      wrap,
+      PP(ppOutput, ppCurrent, ppVisible, ppUrgent, ppHidden,
+         ppHiddenNoWindows, ppOrder, ppTitle) )
+import XMonad.Hooks.EwmhDesktops
+    ( ewmh, ewmhDesktopsEventHook, fullscreenEventHook, ewmh )
 import           XMonad.Hooks.FadeInactive      ( fadeInactiveLogHook )
 import           XMonad.Hooks.ManageDocks       ( Direction2D(..)
                                                 , avoidStruts
@@ -39,7 +67,7 @@ import           XMonad.Prompt                  ( XPConfig(..)
                                                 , amberXPConfig
                                                 )
 import qualified XMonad.StackSet               as W
-import           XMonad.Util.CustomKeys
+import XMonad.Util.CustomKeys ( customKeys )
 import           XMonad.Util.NamedActions       ( NamedAction(..)
                                                 , (^++^)
                                                 , addDescrKeys'
