@@ -1,17 +1,15 @@
 { pkgs ? import <nixpkgs> { } }:
 
-with pkgs;
-
-mkShell {
-  buildInputs = [
-    alsa-lib
-    cabal-install
-    ghc
-    haskell-language-server
-    haskellPackages.brittany
-    pkgconfig
-    x11
-    xorg.libXScrnSaver
-    xorg.libXrandr
-  ];
-}
+let
+  haskellPkgs = pkgs.haskellPackages.ghcWithPackages (hsPkgs:
+    with hsPkgs; [
+      xmonad
+      xmonad-contrib
+      xmonad-extras
+      containers
+      dbus
+      cabal-install
+      brittany
+      haskell-language-server
+    ]);
+in pkgs.mkShell { buildInputs = [ haskellPkgs ]; }
