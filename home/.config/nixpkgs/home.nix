@@ -89,7 +89,6 @@ in {
   news.display = "silent";
 
   programs = {
-    emacs.enable = true;
     jq.enable = true;
     bat.enable = true;
     bash.enable = true;

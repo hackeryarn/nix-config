@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: data-migration-function
-# uuid: dmf
-# key: dmf
-# --
-
-def ${1:func_name}(apps, _):
-    ${2:class} = apps.get_model('${3:app}', '$2')
-    $0

@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=Shepherd
-GenericName=Shepherd
-Exec=shepherd
-Terminal=false
-Type=Application
-X-GNOME-Autostart-enabled=true

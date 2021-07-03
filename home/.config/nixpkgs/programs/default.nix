@@ -1,9 +1,1 @@
-[
-  ./fish
-  ./neovim
-  ./rofi
-  ./xmonad
-  ./tmux
-  ./dconf
-  ./networkmanager
-]
+[ ./fish ./neovim ./rofi ./xmonad ./tmux ./dconf ./networkmanager ./emacs ]
