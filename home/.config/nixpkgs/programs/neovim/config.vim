@@ -30,14 +30,14 @@ nnoremap <M--> <C-w>-
 nnoremap <M-<> <C-w><
 nnoremap <M->> <C-w>>
 
-" True color support
-set termguicolors
-
 " Other options
-syntax on
+set termguicolors
+syntax enable
 set background=light
-let g:solarized_termcolors=256
-colorscheme solarized
+colorscheme NeoSolarized
+set t_8f=^[[38;2;%lu;%lu;%lum
+set t_8b=^[[48;2;%lu;%lu;%lum
+
 set backspace=2
 set laststatus=2
 set noshowmode

@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
-let
-  tmuxConf = builtins.readFile ./default.conf;
-in
-{
+let tmuxConf = builtins.readFile ./default.conf;
+in {
   programs.tmux = {
     enable = true;
     aggressiveResize = true;
@@ -12,6 +10,7 @@ in
     escapeTime = 0;
     keyMode = "vi";
     shortcut = "a";
-    terminal = "screen-256color";
+    terminal = "xterm-256color:Tc";
+    plugins = with pkgs.tmuxPlugins; [ tmux-colors-solarized ];
   };
 }
