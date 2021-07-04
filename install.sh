@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
 set +x
+
+SYSTEM_TO_INSTALL="oryx"
 
 # NixOs config
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
-sudo cp -r nixos/* /etc/nixos/
+sudo cp -r system/* /etc/nixos/
+sudo cp "$SYSTEM_TO_INSTALL.nix" /etc/nixos/configuration.nix
 sudo nixos-rebuild switch --upgrade
 
 # Polybar setup

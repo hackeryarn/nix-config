@@ -37,11 +37,9 @@ let
   ];
 
   haskellPkgs = with pkgs.haskellPackages; [
-    brittany
+    ghc
     cabal2nix
     cabal-install
-    ghc
-    haskell-language-server
     hoogle
     nix-tree
   ];
