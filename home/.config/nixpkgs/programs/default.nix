@@ -8,4 +8,5 @@
   ./networkmanager
   ./emacs
   ./firefox
+  ./git
 ]
