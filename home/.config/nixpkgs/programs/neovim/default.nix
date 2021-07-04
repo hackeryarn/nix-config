@@ -32,7 +32,8 @@ let
 
       # Languages
       ale
-      deoplete-nvim
+      nvim-lspconfig
+      nvim-compe
       dhall-vim
       haskell-vim
       vim-tmux
@@ -41,23 +42,10 @@ let
     ] ++ overriddenPlugins ++ kakounePlugins;
 
   baseConfig = builtins.readFile ./config.vim;
-  # cocConfig = builtins.readFile ./coc.vim;
-  # cocSettings = builtins.toJSON (import ./coc-settings.nix);
   pluginsConfig = builtins.readFile ./plugins.vim;
   vimConfig = baseConfig + pluginsConfig;
 
   neovim-5 = pkgs.callPackage ./dev/nightly.nix { };
-  nvim5-config = builtins.readFile ./dev/metals.vim;
-  new-plugins = pkgs.callPackage ./dev/plugins.nix {
-    inherit (pkgs.vimUtils) buildVimPlugin;
-    inherit (pkgs) fetchFromGitHub;
-  };
-  nvim5-plugins = with new-plugins; [
-    completion-nvim
-    diagnostic-nvim
-    nvim-lsp
-    nvim-metals
-  ];
 in {
   programs.neovim = {
     enable = true;
@@ -70,8 +58,4 @@ in {
     withNodeJs = true;
     withPython3 = true;
   };
-
-  # xdg.configFile = {
-  # "nvim/coc-settings.json".text = cocSettings;
-  # };
 }
