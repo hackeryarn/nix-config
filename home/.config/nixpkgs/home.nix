@@ -11,7 +11,6 @@ let
     exa
     fd
     fractal
-    git
     multilockscreen
     ncdu
     nixfmt
@@ -75,8 +74,8 @@ in {
   xdg.enable = true;
 
   home = {
-    username = "artem";
-    homeDirectory = "/home/artem";
+    username = "hackeryarn";
+    homeDirectory = "/home/hackeryarn";
     stateVersion = "21.05";
 
     packages = defaultPkgs ++ haskellPkgs ++ polybarPkgs ++ xmonadPkgs

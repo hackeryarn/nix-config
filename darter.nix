@@ -18,7 +18,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.artem = {
     isNormalUser = true;
-    home = "/home/artem";
+    home = "/home/hackeryarn";
     description = "Artem Chernyak";
     extraGroups = [
       "wheel"
