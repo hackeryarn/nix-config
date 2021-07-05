@@ -18,7 +18,7 @@
     '';
 
     # Required by cachix to be used as non-root user
-    trustedUsers = [ "root" "artem" ];
+    trustedUsers = [ "root" "hackeryarn" ];
   };
 
   boot = {

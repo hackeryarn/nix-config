@@ -2,7 +2,7 @@
 set -euo pipefail
 set +x
 
-SYSTEM_TO_INSTALL="oryx"
+SYSTEM_TO_INSTALL="darter"
 
 # NixOs config
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
@@ -22,7 +22,11 @@ nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz ho
 nix-channel --update
 export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
 nix-shell '<home-manager>' -A install
-cp home/nixos.png $HOME/Pictures/
 home-manager switch
 
 multilockscreen -u wallpapers/kame-house.jpg
+
+hms
+
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install

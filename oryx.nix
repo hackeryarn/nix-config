@@ -6,8 +6,8 @@ let
 in {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./nixos/shared.nix
-    ./nixos/wm/xmonad.nix
+    ./shared.nix
+    ./wm/xmonad.nix
   ];
 
   fonts.fonts = with pkgs; [
@@ -21,9 +21,9 @@ in {
   # Enable nvidia
   services.xserver.videoDriver = "nvidia";
 
-  users.users.artem = {
+  users.users.hackeryarn = {
     isNormalUser = true;
-    home = "/home/artem";
+    home = "/home/hackeryarn";
     description = "Artem Chernyak";
     shell = pkgs.fish;
     extraGroups = [

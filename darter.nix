@@ -1,10 +1,19 @@
 { config, pkgs, ... }:
 
-{
+let
+  customFonts = pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; };
+  myfonts = pkgs.callPackage fonts/default.nix { inherit pkgs; };
+in {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../wm/xmonad.nix
-    ../shared.nix
+    ./wm/xmonad.nix
+    ./shared.nix
+  ];
+
+  fonts.fonts = with pkgs; [
+    customFonts
+    font-awesome-ttf
+    myfonts.icomoon-feather
   ];
 
   # Horizon VPN
@@ -16,7 +25,7 @@
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.artem = {
+  users.users.hackeryarn = {
     isNormalUser = true;
     home = "/home/hackeryarn";
     description = "Artem Chernyak";

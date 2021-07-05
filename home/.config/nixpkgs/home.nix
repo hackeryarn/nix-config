@@ -56,6 +56,8 @@ let
     xorg.xrandr
   ];
 
+  extraPkgs = import ./packages;
+
   scripts = pkgs.callPackage ./scripts/default.nix { inherit config pkgs; };
 
 in {
@@ -79,7 +81,7 @@ in {
     stateVersion = "21.05";
 
     packages = defaultPkgs ++ haskellPkgs ++ polybarPkgs ++ xmonadPkgs
-      ++ gnomePkgs ++ scripts;
+      ++ gnomePkgs ++ scripts ++ extraPkgs;
 
     sessionVariables = {
       DISPLAY = ":0";

@@ -4,7 +4,7 @@ let
   extra = ''
     ${pkgs.util-linux}/bin/setterm -blank 0 -powersave off -powerdown 0
     ${pkgs.xorg.xset}/bin/xset s off
-    ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI2 --mode 3440x1440 --rate 60.00
+    ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-2 --mode 3440x1440 --rate 60.00
   '';
 
   polybarOpts = ''
