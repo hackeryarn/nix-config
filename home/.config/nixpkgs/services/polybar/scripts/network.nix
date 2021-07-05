@@ -6,8 +6,8 @@ let
   wc = "/run/current-system/sw/bin/wc";
 
   # Darter
-  eth1 = "enp109s0u1u1";
-  wifi1 = "wlp020f3";
+  eth1 = "enp37s0u1u1";
+  wifi1 = "wlp0s20f3";
 
   # Oryx
   eth2 = "enp109s0u1u1";
