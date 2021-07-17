@@ -65,8 +65,6 @@
 ;; Required for pytest
 (setq comint-prompt-read-only nil)
 
-(setq ispell-dictionary "en")
-
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -84,6 +82,8 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(after! lsp-mode
+  (setq +format-with-lsp nil))
 
 (after! evil
   (setq evil-escape-key-sequence "fd")
@@ -101,14 +101,18 @@
   (flycheck-remove-next-checker 'python-flake8 'python-pylint)
   (flycheck-remove-next-checker 'python-flake8 'python-mypy))
 
+(after! format-all
+  (set-formatter! 'autopep8 "autopep8 -" :modes '(python-mode))
+  (advice-add 'format-all-buffer :around #'envrc-propagate-environment))
+
 (after! python
   (setq py-isort-options '("--profile=django"))
-  (setq lsp-pylsp-configuration-sources '("flake8"))
   (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
   (setq +python-jupyter-repl-args '("--simple-prompt"))
+  (setq-hook! 'python-mode-hook +format-with 'autopep8)
   (add-hook! 'python-mode-hook
-    (add-hook 'before-save-hook '+format/buffer 0 t)
-    (add-hook 'before-save-hook 'py-isort-before-save)))
+    (add-hook 'before-save-hook 'py-isort-before-save)
+    (add-hook 'before-save-hook '+format/buffer)))
 
 (after! esh-mode
   (map! :map eshell-mode-map
