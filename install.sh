@@ -30,3 +30,5 @@ hms
 
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom install
+
+sudo mount -o subvol=/ /dev/mapper/enc /mnt
