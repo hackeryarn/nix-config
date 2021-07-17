@@ -8,41 +8,25 @@ import qualified Data.Map                      as Map
 import           System.IO                      ( hClose
                                                 , hPutStr
                                                 )
-import XMonad
-    ( mod4Mask,
-      shiftMask,
-      xK_Return,
-      xK_c,
-      xK_equal,
-      xK_f,
-      xK_s,
-      xK_space,
-      gets,
-      spawn,
-      (|||),
-      xmonad,
-      (<+>),
-      sendMessage,
-      (.|.),
-      Default(def),
-      WorkspaceId,
-      XConfig(XConfig, focusFollowsMouse, clickJustFocuses, borderWidth,
-              layoutHook, keys, normalBorderColor, focusedBorderColor,
-              workspaces, handleEventHook, logHook, startupHook, modMask,
-              terminal),
-      XState(windowset),
-      ChangeLayout(NextLayout),
-      Full(Full),
-      Mirror(Mirror),
-      Tall(Tall) )
-import XMonad.Hooks.DynamicLog
-    ( dynamicLogWithPP,
-      shorten,
-      wrap,
-      PP(ppOutput, ppCurrent, ppVisible, ppUrgent, ppHidden,
-         ppHiddenNoWindows, ppOrder, ppTitle) )
-import XMonad.Hooks.EwmhDesktops
-    ( ewmh, ewmhDesktopsEventHook, fullscreenEventHook, ewmh )
+import           XMonad
+import           XMonad.Hooks.DynamicLog        ( PP
+                                                  ( ppCurrent
+                                                  , ppHidden
+                                                  , ppHiddenNoWindows
+                                                  , ppOrder
+                                                  , ppOutput
+                                                  , ppTitle
+                                                  , ppUrgent
+                                                  , ppVisible
+                                                  )
+                                                , dynamicLogWithPP
+                                                , shorten
+                                                , wrap
+                                                )
+import           XMonad.Hooks.EwmhDesktops      ( ewmh
+                                                , ewmhDesktopsEventHook
+                                                , fullscreenEventHook
+                                                )
 import           XMonad.Hooks.FadeInactive      ( fadeInactiveLogHook )
 import           XMonad.Hooks.ManageDocks       ( Direction2D(..)
                                                 , avoidStruts
@@ -67,13 +51,18 @@ import           XMonad.Prompt                  ( XPConfig(..)
                                                 , amberXPConfig
                                                 )
 import qualified XMonad.StackSet               as W
-import XMonad.Util.CustomKeys ( customKeys )
+import           XMonad.Util.CustomKeys         ( customKeys )
 import           XMonad.Util.NamedActions       ( NamedAction(..)
                                                 , (^++^)
                                                 , addDescrKeys'
                                                 , addName
                                                 , showKm
                                                 , subtitle
+                                                )
+import           XMonad.Util.NamedScratchpad    ( NamedScratchpad(NS)
+                                                , customFloating
+                                                , namedScratchpadAction
+                                                , namedScratchpadManageHook
                                                 )
 import qualified XMonad.Util.NamedWindows      as W
 import           XMonad.Util.Run                ( safeSpawn
@@ -85,7 +74,7 @@ main :: IO ()
 main = mkDbusClient >>= main'
 
 main' :: D.Client -> IO ()
-main' dbus = xmonad . docks . ewmh . urgencyHook $ def
+main' dbus = xmonad . docks . ewmh . myUrgencyHook $ def
   { terminal           = myTerminal
   , focusFollowsMouse  = False
   , clickJustFocuses   = False
@@ -99,10 +88,13 @@ main' dbus = xmonad . docks . ewmh . urgencyHook $ def
   , handleEventHook    = myEventHook
   , logHook            = myPolybarLogHook dbus
   , startupHook        = myStartupHook
+  , manageHook         = myManageHook
   }
  where
-  myModMask   = mod4Mask
-  urgencyHook = withUrgencyHook LibNotifyUrgencyHook
+  myModMask     = mod4Mask
+  myUrgencyHook = withUrgencyHook LibNotifyUrgencyHook
+  myManageHook  = namedScratchpadManageHook scratchpads
+
 
 myStartupHook = startupHook def
 
@@ -116,6 +108,7 @@ instance UrgencyHook LibNotifyUrgencyHook where
     traverse_ (\i -> safeSpawn "notify-send" [show name, "workspace " ++ i])
               maybeIdx
 
+myTerminal :: String
 myTerminal = "alacritty"
 
 ------------------------------------------------------------------------
@@ -133,6 +126,7 @@ inskeys conf@XConfig { XMonad.modMask = modm } =
   , ((modm, xK_equal)              , spawn "polybar-msg cmd toggle &")
   , ((modm, xK_s)                  , spawn "systemctl suspend")
   , ((modm, xK_c)                  , spawn "flameshot gui -p ~/Pictures")
+  , ((modm, xK_t), namedScratchpadAction scratchpads "alacritty")
   ]
 
 
@@ -186,6 +180,15 @@ etcWs = "etc"
 myWS :: [WorkspaceId]
 myWS = [sysWs, workWs, comWs, ossWs, devWs, etcWs]
 
+
+------------------------------------------------------------------------
+-- Workspaces
+scratchpads =
+  [ NS "alacritty"
+       "alacritty"
+       (className =? "Alacritty")
+       (customFloating $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3))
+  ]
 
 ------------------------------------------------------------------------
 -- Polybar settings (needs DBus client).
