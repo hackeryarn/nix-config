@@ -4,28 +4,41 @@ let
   defaultPkgs = with pkgs; [
     any-nix-shell
     arandr
+    aspell
+    aspellDicts.en
+    aspellDicts.en-computers
+    aspellDicts.en-science
     brave
     cachix
+    clang
+    coreutils
     dive
     docker-compose
+    editorconfig-core-c
     exa
     fd
     fractal
+    graphviz
+    librecad
     multilockscreen
     ncdu
     nixfmt
     nix-doc
     nix-index
     nodejs
+    pandoc
+    phantomjs2
+    racket
     ripgrep
     rnix-lsp
     signal-desktop
+    shellcheck
     slack
     sqlite
     stow
     tldr
     xclip
-    zoom
+    zoom-us
   ];
 
   gnomePkgs = with pkgs.gnome3; [
@@ -128,8 +141,8 @@ in {
     };
   };
 
-  # Screenshots
   services = {
+    # Screenshots
     flameshot.enable = true;
     redshift = {
       enable = true;
