@@ -4,6 +4,7 @@
   programs.alacritty = {
     enable = true;
     settings = {
+      env = { TERM = "xterm-256color"; };
       selection.save_to_clipboard = true;
       shell.program = "${pkgs.fish}/bin/fish";
       colors = {
