@@ -18,7 +18,10 @@ let
     exa
     fd
     fractal
+    google-chrome
+    gparted # partition manager
     graphviz
+    kanshi
     librecad
     multilockscreen
     ncdu
@@ -45,8 +48,12 @@ let
     eog # image viewer
     evince # pdf reader
     gnome-calendar # calendar
-    nautilus # file manager
   ];
+
+  matePkgs = with pkgs.mate;
+    [
+      caja # file manager
+    ];
 
   haskellPkgs = with pkgs.haskellPackages; [
     ghc
@@ -61,12 +68,7 @@ let
   xmonadPkgs = with pkgs; [
     networkmanager_dmenu
     networkmanagerapplet
-    nitrogen
     numix-cursor-theme
-    xcape
-    xorg.xkbcomp
-    xorg.xmodmap
-    xorg.xrandr
   ];
 
   extraPkgs = import ./packages;
@@ -94,7 +96,7 @@ in {
     stateVersion = "21.05";
 
     packages = defaultPkgs ++ haskellPkgs ++ polybarPkgs ++ xmonadPkgs
-      ++ gnomePkgs ++ scripts ++ extraPkgs;
+      ++ gnomePkgs ++ scripts ++ extraPkgs ++ matePkgs;
 
     sessionVariables = {
       DISPLAY = ":0";
@@ -141,12 +143,13 @@ in {
     };
   };
 
-  services = {
-    # Screenshots
-    flameshot.enable = true;
-    redshift = {
-      enable = true;
-      provider = "geoclue2";
-    };
-  };
+  xdg.configFile."kanshi/config".text = ''
+    profile {
+      output eDP-1 enable
+    }
+    profile {
+      output eDP-1 disable
+      output HDMI-A-2 enable
+    }
+  '';
 }

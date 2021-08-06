@@ -6,7 +6,7 @@ let
 in {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./wm/xmonad.nix
+    ./wm/sway.nix
     ./services/btrbk.nix
     ./shared.nix
   ];

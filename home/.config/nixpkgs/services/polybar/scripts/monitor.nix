@@ -8,8 +8,8 @@ in pkgs.writeShellScriptBin "monitor" ''
   elif [[ $monitors == *"HDMI-2"* ]]; then
     echo "HDMI-2"
   elif [[ $monitors == *"eDP"* ]]; then
-    echo "eDP1"
+    echo "eDP-1"
   else
-    echo "eDP1"
+    echo "eDP-1"
   fi
 ''
