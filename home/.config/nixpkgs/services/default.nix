@@ -1,1 +1,1 @@
-[ ./udiskie ]
+[ ./udiskie ./kanshi ./mako ]

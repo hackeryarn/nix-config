@@ -142,14 +142,4 @@ in {
       enableFishIntegration = true;
     };
   };
-
-  xdg.configFile."kanshi/config".text = ''
-    profile {
-      output eDP-1 enable
-    }
-    profile {
-      output eDP-1 disable
-      output HDMI-A-2 enable
-    }
-  '';
 }
