@@ -13,13 +13,13 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $bg ~/nix-config/wallpapers/sixth-station.png
-set $lock_bg ~/nix-config/wallpapers/kame-house.jpg
+set $bg_img ~/nix-config/wallpapers/sixth-station.png
 # Colors
 set $blue #268bd2
+set $green #859900
 set $orange #cb4b16
-set $bg_color #fdf6e3
-set $fg_color #556b72
+set $bg #fdf6e3
+set $fg #556b72
 # Your preferred terminal emulator
 set $term alacritty
 # Your preferred application launcher
@@ -28,16 +28,16 @@ set $term alacritty
 set $menu wofi --show drun --allow-images | xargs swaymsg exec --
 
 gaps inner 10
-client.focused $blue $blue $fg_color $blue $blue
-client.urgent $orange $orange $fg_color $orange $orange
-client.focused_inactive $bg_color $bg_color $fg_color $bg_color $bg_color
-client.unfocused $bg_color $bg_color $fg_color $bg_color $bg_color
+client.focused $green $green $fg $green $green
+client.urgent $orange $orange $fg $orange $orange
+client.focused_inactive $bg $bg $fg $bg $bg
+client.unfocused $bg $bg $fg $bg $bg
 default_border pixel 2
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
-output * bg $bg fill
+output * bg $bg_img fill
 #
 # Example configuration:
 #
@@ -208,6 +208,9 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+#
+# Waybar
+#
 bar {
     swaybar_command waybar
 }
@@ -216,3 +219,8 @@ bar {
 # Screen capture
 #
     bindsym $mod+c exec grim -g "$(slurp)" ~/Pictures/$(date +"%s_grim.png")
+
+#
+# Kanshi support
+#
+exec_always "systemctl --user restart kanshi.service"
