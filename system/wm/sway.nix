@@ -88,7 +88,7 @@ in {
                timeout 900 'systemctl suspend' \
                timeout 600 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \
                resume '${pkgs.sway}/bin/swaymsg "output * dpms on"' \
-               before-sleep 'swaylock -f -i ${lockBg}'
+               before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${lockBg}'
       '';
       Restart = "on-failure";
       RestartSec = 1;
@@ -112,7 +112,7 @@ in {
 
   systemd.user.services.mako = {
     description = "Mako notifications";
-    wantedBy = [ "graphical-session.target" ];
+    wantedBy = [ "sway-session.target" ];
     partOf = [ "graphical-session.target" ];
     serviceConfig = {
       ExecStart = ''
@@ -125,7 +125,7 @@ in {
 
   systemd.user.services.kanshi = {
     description = "Kanshi output autoconfig ";
-    wantedBy = [ "graphical-session.target" ];
+    wantedBy = [ "sway-session.target" ];
     partOf = [ "graphical-session.target" ];
     serviceConfig = {
       # kanshi doesn't have an option to specifiy config file yet, so it looks
@@ -141,9 +141,10 @@ in {
   systemd.user.targets.tray = {
     description = "Sway tray target for udiskie";
     documentation = [ "man:systemd.special(7)" ];
-    bindsTo = [ "sway-session.target" ];
-    wants = [ "sway-session.target" ];
-    after = [ "sway-session.target" ];
+    bindsTo = [ "graphical-session.target" ];
+    wants = [ "graphical-sesion-pre.target" ];
+    after = [ "graphical-session-pre.target" ];
+    wantedBy = [ "sway-session.targte" ];
   };
 
   location.provider = "geoclue2";
