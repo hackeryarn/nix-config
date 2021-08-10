@@ -144,7 +144,7 @@ in {
     bindsTo = [ "graphical-session.target" ];
     wants = [ "graphical-sesion-pre.target" ];
     after = [ "graphical-session-pre.target" ];
-    wantedBy = [ "sway-session.targte" ];
+    wantedBy = [ "graphical-session.targte" ];
   };
 
   location.provider = "geoclue2";
