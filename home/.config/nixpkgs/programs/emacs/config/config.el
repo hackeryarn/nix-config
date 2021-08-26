@@ -135,6 +135,20 @@
 (after! pollen-mode
   (add-hook 'pollen-mode-hook #'spell-fu-mode))
 
+(after! org
+  (add-hook! 'org-mode-hook 'org-fragtog-mode))
+
+(after! circe
+ (load-file "~/.private.el")
+ (set-irc-server! "irc.libera.chat"
+    `(:tls t
+      :port 6697
+      :nick "hackeryarn"
+      :sasl-username "hackeryarn"
+      :sasl-password ,libera-password
+      :channels ("#emacs" "#scheme"))))
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
