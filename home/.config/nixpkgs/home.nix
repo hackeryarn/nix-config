@@ -39,6 +39,7 @@ let
     slack
     sqlite
     stow
+    texlive.combined.scheme-medium
     tldr
     xclip
     zoom-us
@@ -66,7 +67,7 @@ let
   polybarPkgs = with pkgs; [ font-awesome-ttf ];
 
   xmonadPkgs = with pkgs; [
-    networkmanager_dmenu
+    networkmanager
     networkmanagerapplet
     numix-cursor-theme
   ];
@@ -140,6 +141,13 @@ in {
     fzf = {
       enable = true;
       enableFishIntegration = true;
+    };
+  };
+
+  services = {
+    kdeconnect = {
+      enable = true;
+      indicator = true;
     };
   };
 }

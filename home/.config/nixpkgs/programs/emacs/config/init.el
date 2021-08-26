@@ -159,6 +159,7 @@
         +racket
         +guile
         +mit
+        +chez
         +gambit)            ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
