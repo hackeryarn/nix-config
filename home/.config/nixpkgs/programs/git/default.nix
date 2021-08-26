@@ -20,6 +20,10 @@ in {
     ignores = [ "*.direnv" ];
     userEmail = "artemchernyak@gmail.com";
     userName = "hackeryarn";
-    signing.key = "A63E3A100E8A5A4D";
+    signing = {
+      key = "A63E3A100E8A5A4D";
+      signByDefault = true;
+    };
+
   };
 }
