@@ -31,6 +31,7 @@ let
     nodejs
     pandoc
     phantomjs2
+    pinentry-qt
     racket
     ripgrep
     rnix-lsp
@@ -142,12 +143,26 @@ in {
       enable = true;
       enableFishIntegration = true;
     };
+
+    browserpass = {
+      enable = true;
+      browsers = [ "firefox" "chrome" "chromium" ];
+    };
+    gpg.enable = true;
   };
 
   services = {
     kdeconnect = {
       enable = true;
       indicator = true;
+    };
+    gpg-agent = {
+      enable = true;
+      pinentryFlavor = "qt";
+      extraConfig = ''
+        allow-emacs-pinentry
+        allow-loopback-pinentry
+      '';
     };
   };
 }
