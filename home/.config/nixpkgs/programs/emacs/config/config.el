@@ -139,14 +139,13 @@
   (add-hook! 'org-mode-hook 'org-fragtog-mode))
 
 (after! circe
- (load-file "~/.private.el")
  (set-irc-server! "irc.libera.chat"
     `(:tls t
       :port 6697
       :nick "hackeryarn"
       :sasl-username "hackeryarn"
-      :sasl-password ,libera-password
-      :channels ("#emacs" "#scheme"))))
+      :sasl-password (lambda (&rest _) (+pass-get-secret "web.libera.chat"))
+      :channels ("#emacs" "#scheme" "#guix"))))
 
 
 (custom-set-variables

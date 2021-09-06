@@ -21,6 +21,41 @@
     trustedUsers = [ "root" "hackeryarn" ];
   };
 
+  users = {
+    extraUsers = let
+      hackeryarnUser = {
+        hackeryarn = {
+          isNormalUser = true;
+          home = "/home/hackeryarn";
+          description = "Artem Chernyak";
+          extraGroups = [
+            "wheel"
+            "networkmanager"
+            "disk"
+            "audio"
+            "video"
+            "systemd-journal"
+            "docker"
+          ];
+        };
+      };
+      buildUser = (i: {
+        "guixbuilder${i}" = { # guixbuilder$i
+          group = "guixbuild"; # -g guixbuild
+          extraGroups = [ "guixbuild" ]; # -G guixbuild
+          home = "/var/empty"; # -d /var/empty
+          shell = pkgs.nologin; # -s `which nologin`
+          description = "Guix build user ${i}"; # -c "Guix buid user $i"
+          isSystemUser = true; # --system
+        };
+      });
+      # merge all users
+    in pkgs.lib.fold (str: acc: acc // buildUser str) hackeryarnUser
+    # for i in `seq -w 1 10`
+    (map (pkgs.lib.fixedWidthNumber 2) (builtins.genList (n: n + 1) 10));
+    extraGroups.guixbuild = { name = "guixbuild"; };
+  };
+
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     loader.systemd-boot.enable = true;
@@ -102,8 +137,6 @@
     enable = true;
     support32Bit = true;
   };
-
-  programs.fish.enable = true;
 
   # Ignore lid close when docked
   services.logind = {

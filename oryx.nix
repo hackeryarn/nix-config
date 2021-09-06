@@ -20,21 +20,4 @@ in {
 
   # Enable nvidia
   services.xserver.videoDriver = "nvidia";
-
-  users.users.hackeryarn = {
-    isNormalUser = true;
-    home = "/home/hackeryarn";
-    description = "Artem Chernyak";
-    shell = pkgs.fish;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-      "disk"
-      "audio"
-      "video"
-      "systemd-journal"
-      "docker"
-    ];
-  };
-
 }

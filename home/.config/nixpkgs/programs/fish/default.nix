@@ -14,7 +14,7 @@ let
     set -g theme_color_scheme solarized
   '';
 
-  customPlugins = pkgs.callPackage ./plugins.nix {};
+  customPlugins = pkgs.callPackage ./plugins.nix { };
 
   fenv = {
     name = "foreign-env";
@@ -24,8 +24,7 @@ let
   fishConfig = ''
     set fish_greeting
   '' + fzfConfig + themeConfig;
-in
-{
+in {
   programs.fish = {
     enable = true;
     plugins = [ customPlugins.theme fenv ];
@@ -34,14 +33,14 @@ in
       any-nix-shell fish --info-right | source
     '';
     shellAliases = {
-      cat  = "bat";
-      dc   = "docker-compose";
-      dps  = "docker-compose ps";
-      dcd  = "docker-compose down --remove-orphans";
-      drm  = "docker images -a -q | xargs docker rmi -f";
-      du   = "ncdu --color dark -rr -x";
-      ls   = "exa";
-      ll   = "ls -a";
+      cat = "bat";
+      dc = "docker-compose";
+      dps = "docker-compose ps";
+      dcd = "docker-compose down --remove-orphans";
+      drm = "docker images -a -q | xargs docker rmi -f";
+      du = "ncdu --color dark -rr -x";
+      ls = "exa";
+      ll = "ls -a";
       ".." = "cd ..";
       ping = "prettyping";
     };

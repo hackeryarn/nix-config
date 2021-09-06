@@ -8,6 +8,7 @@ in {
     ./hardware-configuration.nix
     ./wm/sway.nix
     ./services/btrbk.nix
+    ./services/guix.nix
     ./shared.nix
   ];
 
@@ -23,21 +24,5 @@ in {
       config = "config /root/nixos/openvpn/horizon.conf";
       autoStart = false;
     };
-  };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.hackeryarn = {
-    isNormalUser = true;
-    home = "/home/hackeryarn";
-    description = "Artem Chernyak";
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-      "disk"
-      "audio"
-      "video"
-      "systemd-journal"
-      "docker"
-    ];
   };
 }

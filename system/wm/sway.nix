@@ -141,10 +141,9 @@ in {
   systemd.user.targets.tray = {
     description = "Sway tray target for udiskie";
     documentation = [ "man:systemd.special(7)" ];
-    bindsTo = [ "graphical-session.target" ];
     wants = [ "graphical-sesion-pre.target" ];
     after = [ "graphical-session-pre.target" ];
-    wantedBy = [ "graphical-session.targte" ];
+    wantedBy = [ "sway-session.targte" ];
   };
 
   location.provider = "geoclue2";

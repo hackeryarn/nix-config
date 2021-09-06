@@ -112,16 +112,14 @@ in {
   programs = {
     jq.enable = true;
     bat.enable = true;
-    bash.enable = true;
-
     autojump = {
       enable = true;
-      enableFishIntegration = true;
+      # enableFishIntegration = true;
     };
 
     broot = {
       enable = true;
-      enableFishIntegration = true;
+      # enableFishIntegration = true;
     };
 
     htop = {
@@ -132,16 +130,9 @@ in {
       };
     };
 
-    direnv = {
-      enable = true;
-      enableBashIntegration = true;
-      enableFishIntegration = true;
-      nix-direnv.enable = true;
-    };
-
     fzf = {
       enable = true;
-      enableFishIntegration = true;
+      # enableFishIntegration = true;
     };
 
     browserpass = {
@@ -156,9 +147,13 @@ in {
       enable = true;
       indicator = true;
     };
+
     gpg-agent = {
       enable = true;
       pinentryFlavor = "qt";
+      enableSshSupport = true;
+      defaultCacheTtl = 86400;
+      defaultCacheTtlSsh = 86400;
       extraConfig = ''
         allow-emacs-pinentry
         allow-loopback-pinentry
