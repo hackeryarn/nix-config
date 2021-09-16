@@ -36,6 +36,7 @@
             "video"
             "systemd-journal"
             "docker"
+            "libvirtd"
           ];
         };
       };
@@ -90,12 +91,13 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
+  programs.bash = {
+    enableCompletion = true;
+    enableLsColors = true;
   };
 
   # Enable virtualization
+  services.nfs.server.enable = true;
   virtualisation = {
     libvirtd.enable = true;
 
@@ -114,6 +116,13 @@
   };
 
   nixpkgs.config = { allowUnfree = true; };
+
+  # Enable gpg-agent
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryFlavor = "qt";
+    enableSSHSupport = true;
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -144,6 +153,11 @@
     lidSwitchExternalPower = "ignore";
     extraConfig = "HandleLidSwitch=ignore";
   };
+
+  # Setup pam applications
+  security.pam.services.logind.gnupg.enable = true;
+  security.pam.services.login.gnupg.enable = true;
+  security.pam.services.swaylock.gnupg.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -5,7 +5,6 @@
   programs.direnv = {
     enable = true;
     enableBashIntegration = true;
-    # enableFishIntegration = true;
     stdlib = ''
       use_guix() {
         local cache_dir="$(direnv_layout_dir)/.guix-profile"

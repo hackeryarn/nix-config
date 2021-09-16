@@ -6,7 +6,6 @@
     settings = {
       env = { TERM = "xterm-256color"; };
       selection.save_to_clipboard = true;
-      shell.program = "${pkgs.bash}/bin/bash";
       colors = {
         primary = {
           background = "#fdf6e3";

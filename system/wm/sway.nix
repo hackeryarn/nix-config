@@ -10,12 +10,12 @@ in {
       swaylock # lockscreen
       swayidle
       xwayland # for legacy apps
-      waybar
+      # waybar
       wl-clipboard # clipboard
       wofi # app launcher
       wf-recorder # screen recorder
       mako # notification daemon
-      kanshi # auto screen lock
+      # kanshi # auto screen lock
       # screen capture
       slurp
       grim
@@ -24,9 +24,9 @@ in {
 
   environment = {
     etc = {
-      "sway/config".source = ../dotfiles/sway/config;
-      "xdg/waybar/config".source = ../dotfiles/waybar/config;
-      "xdg/waybar/style.css".source = ../dotfiles/waybar/style.css;
+      # "sway/config".source = ../dotfiles/sway/config;
+      # "xdg/waybar/config".source = ../dotfiles/waybar/config;
+      # "xdg/waybar/style.css".source = ../dotfiles/waybar/style.css;
     };
   };
 
@@ -55,25 +55,25 @@ in {
     after = [ "graphical-session-pre.target" ];
   };
 
-  systemd.user.services.sway = {
-    description = "Sway - Wayland window manager";
-    documentation = [ "man:sway(5)" ];
-    bindsTo = [ "graphical-session.target" ];
-    wants = [ "graphical-session-pre.target" ];
-    after = [ "graphical-session-pre.target" ];
-    # We explicitly unset PATH here, as we want it to be set by
-    # systemctl --user import-environment in startsway
-    environment.PATH = lib.mkForce null;
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = ''
-        ${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway --debug
-      '';
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
-    };
-  };
+  # systemd.user.services.sway = {
+  #   description = "Sway - Wayland window manager";
+  #   documentation = [ "man:sway(5)" ];
+  #   bindsTo = [ "graphical-session.target" ];
+  #   wants = [ "graphical-session-pre.target" ];
+  #   after = [ "graphical-session-pre.target" ];
+  #   # We explicitly unset PATH here, as we want it to be set by
+  #   # systemctl --user import-environment in startsway
+  #   environment.PATH = lib.mkForce null;
+  #   serviceConfig = {
+  #     Type = "simple";
+  #     ExecStart = ''
+  #       ${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway --debug
+  #     '';
+  #     Restart = "on-failure";
+  #     RestartSec = 1;
+  #     TimeoutStopSec = 10;
+  #   };
+  # };
 
   systemd.user.services.swayidle = {
     description = "Idle Manager for Wayland";
@@ -96,19 +96,19 @@ in {
     };
   };
 
-  systemd.user.services.waybar = {
-    description = "Status bar for sway";
-    wantedBy = [ "sway-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    serviceConfig = {
-      ExecStart = ''
-        ${pkgs.waybar}/bin/waybar
-      '';
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
-    };
-  };
+  # systemd.user.services.waybar = {
+  #   description = "Status bar for sway";
+  #   wantedBy = [ "sway-session.target" ];
+  #   partOf = [ "graphical-session.target" ];
+  #   serviceConfig = {
+  #     ExecStart = ''
+  #       ${pkgs.waybar}/bin/waybar
+  #     '';
+  #     Restart = "on-failure";
+  #     RestartSec = 1;
+  #     TimeoutStopSec = 10;
+  #   };
+  # };
 
   systemd.user.services.mako = {
     description = "Mako notifications";
@@ -123,28 +123,28 @@ in {
     };
   };
 
-  systemd.user.services.kanshi = {
-    description = "Kanshi output autoconfig ";
-    wantedBy = [ "sway-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    serviceConfig = {
-      # kanshi doesn't have an option to specifiy config file yet, so it looks
-      # at .config/kanshi/config
-      ExecStart = ''
-        ${pkgs.kanshi}/bin/kanshi
-      '';
-      RestartSec = 5;
-      Restart = "always";
-    };
-  };
+  # systemd.user.services.kanshi = {
+  #   description = "Kanshi output autoconfig ";
+  #   wantedBy = [ "sway-session.target" ];
+  #   partOf = [ "graphical-session.target" ];
+  #   serviceConfig = {
+  #     # kanshi doesn't have an option to specifiy config file yet, so it looks
+  #     # at .config/kanshi/config
+  #     ExecStart = ''
+  #       ${pkgs.kanshi}/bin/kanshi
+  #     '';
+  #     RestartSec = 5;
+  #     Restart = "always";
+  #   };
+  # };
 
-  systemd.user.targets.tray = {
-    description = "Sway tray target for udiskie";
-    documentation = [ "man:systemd.special(7)" ];
-    wants = [ "graphical-sesion-pre.target" ];
-    after = [ "graphical-session-pre.target" ];
-    wantedBy = [ "sway-session.targte" ];
-  };
+  # systemd.user.targets.tray = {
+  #   description = "Sway tray target for udiskie";
+  #   documentation = [ "man:systemd.special(7)" ];
+  #   wants = [ "graphical-sesion-pre.target" ];
+  #   after = [ "graphical-session-pre.target" ];
+  #   wantedBy = [ "sway-session.targte" ];
+  # };
 
   location.provider = "geoclue2";
   services.redshift = {

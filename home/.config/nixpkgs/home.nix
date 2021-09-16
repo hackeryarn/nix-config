@@ -21,7 +21,7 @@ let
     google-chrome
     gparted # partition manager
     graphviz
-    kanshi
+    # kanshi
     librecad
     multilockscreen
     ncdu
@@ -43,7 +43,6 @@ let
     texlive.combined.scheme-medium
     tldr
     xclip
-    zoom-us
   ];
 
   gnomePkgs = with pkgs.gnome3; [
@@ -112,15 +111,9 @@ in {
   programs = {
     jq.enable = true;
     bat.enable = true;
-    autojump = {
-      enable = true;
-      # enableFishIntegration = true;
-    };
+    autojump = { enable = true; };
 
-    broot = {
-      enable = true;
-      # enableFishIntegration = true;
-    };
+    broot = { enable = true; };
 
     htop = {
       enable = true;
@@ -130,16 +123,12 @@ in {
       };
     };
 
-    fzf = {
-      enable = true;
-      # enableFishIntegration = true;
-    };
+    fzf = { enable = true; };
 
     browserpass = {
       enable = true;
       browsers = [ "firefox" "chrome" "chromium" ];
     };
-    gpg.enable = true;
   };
 
   services = {

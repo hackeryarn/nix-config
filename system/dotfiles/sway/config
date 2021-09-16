@@ -238,4 +238,4 @@ exec "systemctl --user import-environment; systemctl --user start sway-session.t
 #
 # Kanshi support
 #
-exec_always "systemctl --user restart kanshi.service"
+# exec_always "systemctl --user restart kanshi.service"
