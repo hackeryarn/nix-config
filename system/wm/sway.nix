@@ -10,7 +10,7 @@ in {
       swaylock # lockscreen
       swayidle
       xwayland # for legacy apps
-      # waybar
+      waybar
       wl-clipboard # clipboard
       wofi # app launcher
       wf-recorder # screen recorder
@@ -22,13 +22,13 @@ in {
     ];
   };
 
-  environment = {
-    etc = {
-      # "sway/config".source = ../dotfiles/sway/config;
-      # "xdg/waybar/config".source = ../dotfiles/waybar/config;
-      # "xdg/waybar/style.css".source = ../dotfiles/waybar/style.css;
-    };
-  };
+  # environment = {
+  #   etc = {
+  #     # "sway/config".source = ../dotfiles/sway/config;
+  #     # "xdg/waybar/config".source = ../dotfiles/waybar/config;
+  #     # "xdg/waybar/style.css".source = ../dotfiles/waybar/style.css;
+  #   };
+  # };
 
   environment.systemPackages = with pkgs;
     [
@@ -42,6 +42,7 @@ in {
           # first import environment variables from the login manager
           systemctl --user import-environment
           # then start the service
+          # /home/hackeryarn/.guix-profile/bin/shepherd &
           exec systemctl --wait --user start sway.service
         '';
       })
@@ -155,6 +156,10 @@ in {
   programs.light.enable = true;
 
   environment.loginShellInit = ''
-    [[ "$(tty)" == /dev/tty1 ]] && startsway
+    export GUIX_LOCPATH=/home/hackeryarn/.guix-profile/lib/locale
+    export XDG_DATA_DIRS="home/hackeryarn/.local/share/flatpak/exports/share/applications:$XDG_DATA_DIRS"
+    if [[ ! -S ''${XDG_RUNTIME_DIR-$HOME/.cache}/shepherd/socket ]]; then
+        /home/hackeryarn/.guix-profile/bin/sway
+    fi
   '';
 }
