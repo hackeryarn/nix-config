@@ -50,17 +50,13 @@
            "* IDEA %?\n%i\n%a" :prepend t)
         org-capture-templates))
 
+(after! org
+  (add-hook! 'org-mode-hook
+    (add-hook 'after-save-hook 'org-babel-tangle nil 'local)))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
-
-;; Theme config
-(after! modus-operandi-theme
-  (setq modus-operandi-theme-override-colors-alist '(()))
-  (setq modus-themes-slanted-constructs t)
-  (setq modus-themes-bold-constructs nil)
-  (setq modus-themes-paren-match 'intense))
 
 ;; Required for pytest
 (setq comint-prompt-read-only nil)
@@ -81,6 +77,10 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(defun org-babel-edit-prep:emacs-lisp (&optional _babel-info)
+  "Disable `parinfer-rust-mode' in ORg source block for emacs-lisp."
+  (parinfer-rust-mode -1))
 
 (after! lsp-mode
   (setq +format-with-lsp nil))
