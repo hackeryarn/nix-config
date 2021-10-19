@@ -21,7 +21,6 @@ let
     google-chrome
     gparted # partition manager
     graphviz
-    # kanshi
     librecad
     multilockscreen
     ncdu
