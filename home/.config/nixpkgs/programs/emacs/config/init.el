@@ -103,7 +103,6 @@
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
-       neuron
 
        :lang
        ;;agda              ; types of types of types of types...
@@ -148,7 +147,7 @@
        purescript        ; javascript, but functional
        (python +lsp +pyright)     ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
-       ;;(racket +xp)            ; a DSL for DSLs
+       (racket +xp)            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
        rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
@@ -156,7 +155,6 @@
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        (scheme
-        +racket
         +guile
         +mit
         +chez
