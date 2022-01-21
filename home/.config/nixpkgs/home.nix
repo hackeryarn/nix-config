@@ -17,7 +17,7 @@ let
     editorconfig-core-c
     exa
     fd
-    fractal
+    element-desktop
     google-chrome
     gparted # partition manager
     graphviz
@@ -60,7 +60,7 @@ let
     cabal2nix
     cabal-install
     hoogle
-    nix-tree
+    # nix-tree
   ];
 
   polybarPkgs = with pkgs; [ font-awesome-ttf ];

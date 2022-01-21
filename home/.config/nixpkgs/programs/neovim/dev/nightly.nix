@@ -11,5 +11,6 @@ pkgs.neovim-unwrapped.overrideAttrs (old: {
     sha256 = "0lgbf90sbachdag1zm9pmnlbn35964l3khs27qy4462qzpqyi9fi";
   };
 
-  buildInputs = old.buildInputs ++ [ pkgs.tree-sitter ];
+  # buildInputs = old.buildInputs ++ [ pkgs.tree-sitter ];
+  buildInputs = old.buildInputs;
 })

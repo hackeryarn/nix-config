@@ -45,12 +45,11 @@ let
   pluginsConfig = builtins.readFile ./plugins.vim;
   vimConfig = baseConfig + pluginsConfig;
 
-  neovim-5 = pkgs.callPackage ./dev/nightly.nix { };
+  # neovim-5 = pkgs.callPackage ./dev/nightly.nix { };
 in {
   programs.neovim = {
     enable = true;
     extraConfig = vimConfig;
-    package = neovim-5;
     plugins = myVimPlugins;
     viAlias = true;
     vimAlias = true;
