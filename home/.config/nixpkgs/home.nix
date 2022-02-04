@@ -17,7 +17,7 @@ let
     editorconfig-core-c
     exa
     fd
-    fractal
+    element-desktop
     google-chrome
     gparted # partition manager
     graphviz
