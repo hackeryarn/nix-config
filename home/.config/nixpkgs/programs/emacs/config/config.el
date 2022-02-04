@@ -48,8 +48,8 @@
            ((agenda "" nil)
             (todo "IDEA" nil)))))
   (push '("i" "Idea" entry
-           (file+headline +org-capture-todo-file "Inbox")
-           "* IDEA %?\n%i\n%a" :prepend t)
+          (file+headline +org-capture-todo-file "Inbox")
+          "* IDEA %?\n%i\n%a" :prepend t)
         org-capture-templates))
 
 
