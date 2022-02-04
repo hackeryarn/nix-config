@@ -94,7 +94,7 @@ in {
   home = {
     username = "hackeryarn";
     homeDirectory = "/home/hackeryarn";
-    stateVersion = "21.05";
+    stateVersion = "22.05";
 
     packages = defaultPkgs ++ haskellPkgs ++ polybarPkgs ++ xmonadPkgs
       ++ gnomePkgs ++ scripts ++ extraPkgs ++ matePkgs;
