@@ -187,11 +187,11 @@
 (defun setup-bro ()
   (interactive)
   (+workspace-switch "bro" t)
-  (find-file "~/horizon/bro/manage.py")
+  (find-file "~/src/horizon/bro/manage.py")
   (+eshell/toggle nil))
 
 (defun setup-bro-clj ()
   (interactive)
   (+workspace-switch "clj" t)
-  (find-file "~/horizon/bro/clj/project.clj")
+  (find-file "~/src/horizon/bro/clj/project.clj")
   (cider-jack-in-cljs '(:cljs-repl-type bro)))
