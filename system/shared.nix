@@ -3,7 +3,6 @@
 {
   nix = {
     package = pkgs.nixUnstable;
-    autoOptimiseStore = true;
 
     # Automate garbage collection
     gc = {
@@ -18,7 +17,10 @@
     '';
 
     # Required by cachix to be used as non-root user
-    trustedUsers = [ "root" "hackeryarn" ];
+    settings = {
+      auto-optimise-store = true;
+      trusted-users = [ "root" "hackeryarn" ];
+    };
   };
 
   users = {
