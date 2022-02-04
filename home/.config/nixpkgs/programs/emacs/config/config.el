@@ -30,6 +30,8 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
+(setq ispell-dictionary "en")
+
 (after! org
   (setq org-agenda-todo-ignore-scheduled 'future)
   (setq org-agenda-span 3)
