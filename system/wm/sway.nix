@@ -22,6 +22,12 @@ in {
     ];
   };
 
+  security.pam.services.swaylock = {
+    text = ''
+      auth include login
+    '';
+  };
+
   environment = {
     etc = {
       "sway/config".source = ../dotfiles/sway/config;
