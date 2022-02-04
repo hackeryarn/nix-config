@@ -26,7 +26,6 @@ let
     multilockscreen
     ncdu
     nixfmt
-    nix-doc
     nix-index
     nodejs
     pandoc
