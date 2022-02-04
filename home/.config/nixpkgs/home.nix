@@ -10,7 +10,9 @@ let
     aspellDicts.en-science
     brave
     cachix
+    calibre
     clang
+    clj-kondo
     coreutils
     dive
     docker-compose
@@ -41,6 +43,7 @@ let
     stow
     texlive.combined.scheme-medium
     tldr
+    virt-manager
     xclip
     zoom-us
   ];
