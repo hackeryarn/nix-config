@@ -144,7 +144,7 @@
   (add-hook! 'org-mode-hook 'org-fragtog-mode))
 
 (after! circe
- (set-irc-server! "irc.libera.chat"
+  (set-irc-server! "irc.libera.chat"
     `(:tls t
       :port 6697
       :nick "hackeryarn"
