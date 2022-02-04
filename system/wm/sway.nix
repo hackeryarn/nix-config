@@ -141,15 +141,16 @@ in {
   systemd.user.targets.tray = {
     description = "Sway tray target for udiskie";
     documentation = [ "man:systemd.special(7)" ];
-    wants = [ "graphical-sesion-pre.target" ];
-    after = [ "graphical-session-pre.target" ];
-    wantedBy = [ "sway-session.targte" ];
+    wants = [ "graphical-sesion.target" ];
+    after = [ "graphical-session.target" ];
+    wantedBy = [ "sway-session.target" ];
   };
 
   location.provider = "geoclue2";
   services.redshift = {
     enable = true;
-    package = pkgs.redshift-wlr;
+    package = pkgs.gammastep;
+    executable = "/bin/gammastep";
   };
 
   programs.light.enable = true;
