@@ -107,6 +107,9 @@
   (set-formatter! 'autopep8 "autopep8 -" :modes '(python-mode))
   (advice-add 'format-all-buffer :around #'envrc-propagate-environment))
 
+(after! haskell
+  (setq lsp-haskell-formatting-provider "brittany"))
+
 (after! python
   (setq py-isort-options '("--profile=django"))
   (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
