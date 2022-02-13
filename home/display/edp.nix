@@ -1,5 +1,5 @@
 # Configuration for the eDP display of the Tongfang laptop (default: HDMI-1)
-{ config, lib, pkgs, stdenv, ... }:
+{ config, lib, pkgs, stdenv, nur, ... }:
 
 let
   base = pkgs.callPackage ../home.nix { inherit config lib pkgs stdenv; };

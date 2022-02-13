@@ -5,4 +5,4 @@ nix-channel --update
 sudo cp -r system/* /etc/nixos/
 sudo nixos-rebuild switch --upgrade
 
-hms
+# hms

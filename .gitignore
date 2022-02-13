@@ -2,3 +2,5 @@
 /lein/.lein/self-installs/
 neovim/.config/nvim/plugged
 /neovim/.config/nvim/after/compiler/
+nixos/home/result
+result

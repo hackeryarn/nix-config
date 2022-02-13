@@ -43,7 +43,7 @@ let
     stow
     texlive.combined.scheme-full
     tldr
-    virt-manager
+    # virt-manager
     xclip
     # zoom-us
   ];
@@ -98,10 +98,6 @@ in {
   xdg.enable = true;
 
   home = {
-    username = "hackeryarn";
-    homeDirectory = "/home/hackeryarn";
-    stateVersion = "22.05";
-
     packages = defaultPkgs ++ haskellPkgs ++ polybarPkgs ++ xmonadPkgs
       ++ gnomePkgs ++ scripts ++ extraPkgs ++ matePkgs;
 
@@ -116,15 +112,22 @@ in {
 
   programs = {
     jq.enable = true;
+
     bat.enable = true;
+
     autojump = {
       enable = true;
       # enableFishIntegration = true;
     };
 
-    broot = {
+    # broot = {
+    #   enable = true;
+    #   # enableFishIntegration = true;
+    # };
+
+    obs-studio = {
       enable = true;
-      # enableFishIntegration = true;
+      plugins = [ ];
     };
 
     htop = {
@@ -148,11 +151,6 @@ in {
   };
 
   services = {
-    kdeconnect = {
-      enable = true;
-      indicator = true;
-    };
-
     gpg-agent = {
       enable = true;
       pinentryFlavor = "qt";

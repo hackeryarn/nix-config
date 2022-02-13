@@ -1,5 +1,5 @@
 # Configuration for the HDMI-2 display monitor
-{ config, lib, pkgs, stdenv, ... }:
+{ config, lib, pkgs, stdenv, nur, ... }:
 
 let
   base = pkgs.callPackage ../home.nix { inherit config lib pkgs stdenv; };
