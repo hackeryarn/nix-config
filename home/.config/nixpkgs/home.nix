@@ -61,10 +61,13 @@ let
 
   haskellPkgs = with pkgs.haskellPackages; [
     ghc
-    cabal2nix
     cabal-install
     hoogle
+    haskell-language-server
+    hlint
+    brittany
     nix-tree
+    cabal2nix
   ];
 
   polybarPkgs = with pkgs; [ font-awesome-ttf ];
