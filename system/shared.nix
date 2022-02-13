@@ -38,6 +38,9 @@
             "video"
             "systemd-journal"
             "docker"
+            "qemu-libvirtd"
+            "libvirtd"
+            "vboxusers"
           ];
         };
       };
@@ -60,6 +63,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelModules = [ "kvm-amd" "kvm-intel" ];
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     extraModprobeConfig = "options kvm_intel nested=1";
@@ -92,6 +96,7 @@
   # Enable virtualization
   virtualisation = {
     libvirtd.enable = true;
+    virtualbox.host.enable = true;
 
     docker = {
       enable = true;
@@ -101,6 +106,13 @@
       };
     };
   };
+
+  # Enable nfs with libvirt
+  services.nfs.server.enable = true;
+  networking.firewall.extraCommands = ''
+    ip46tables -I INPUT 1 -i virbr+ -p tcp -m tcp --dport 2049 -j ACCEPT
+    ip46tables -I INPUT 1 -i vboxnet+ -p tcp -m tcp --dport 2049 -j ACCEPT
+  '';
 
   console = {
     font = "Lat2-Terminus16";
