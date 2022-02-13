@@ -41,11 +41,11 @@ let
     slack
     sqlite
     stow
-    texlive.combined.scheme-medium
+    texlive.combined.scheme-full
     tldr
     virt-manager
     xclip
-    zoom-us
+    # zoom-us
   ];
 
   gnomePkgs = with pkgs.gnome3; [
