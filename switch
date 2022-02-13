@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set +x
+
+rebuild_home_edp() {
+  nix build .#homeConfigurations.hackeryarn-edp.activationPackage
+  result/activate
+}
+
+rebuild_home_hdmi() {
+  nix build .#homeConfigurations.hackeryarn-hdmi.activationPackage
+  result/activate
+}
+
+rebuild_system() {
+  nix build .#nixosConfigurations.darter.config.system.build.toplevel
+  sudo nixos-rebuild switch --flake .#darter
+}
+
+case $1 in
+  "edp")
+    rebuild_home_edp;;
+  "hdmi")
+    rebuild_home_hdmi;;
+  "system")
+    rebuild_system;;
+  *)
+    echo "expected 'edp', 'hdmi', 'system'";;
+esac

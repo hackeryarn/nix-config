@@ -21,5 +21,10 @@
       homeConfigurations = (import ./outputs/home-conf.nix {
         inherit system nixpkgs nurpkgs home-manager;
       });
+
+      nixosConfigurations = (import ./outputs/nixos-conf.nix {
+        inherit (nixpkgs) lib;
+        inherit inputs system;
+      });
     };
 }

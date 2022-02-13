@@ -1,6 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
-{
+let
+  customFonts = pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; };
+  myfonts = pkgs.callPackage fonts/default.nix { inherit pkgs; };
+in {
+  imports = [ ./wm/sway.nix ./services/btrbk.nix ./services/guix.nix ];
   nix = {
     package = pkgs.nixUnstable;
 
@@ -63,7 +67,6 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "kvm-amd" "kvm-intel" ];
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -119,6 +122,12 @@
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
+
+  fonts.fonts = with pkgs; [
+    customFonts
+    font-awesome-ttf
+    myfonts.icomoon-feather
+  ];
 
   nixpkgs.config = { allowUnfree = true; };
 
