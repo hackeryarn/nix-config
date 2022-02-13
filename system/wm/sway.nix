@@ -145,11 +145,9 @@ in {
   };
 
   systemd.user.targets.tray = {
-    description = "Sway tray target for udiskie";
-    documentation = [ "man:systemd.special(7)" ];
-    wants = [ "graphical-sesion.target" ];
-    after = [ "graphical-session.target" ];
-    wantedBy = [ "sway-session.target" ];
+    description = "Sway tray target for home manager units";
+    after =
+      [ "sway-session.target" "waybar.service" "sway.service" "mako.service" ];
   };
 
   location.provider = "geoclue2";
